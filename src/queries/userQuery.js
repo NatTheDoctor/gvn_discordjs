@@ -1,9 +1,9 @@
 const UserSchema = require("../schema/user");
 
-const fetchOrCreateGuild = async (guildId) => {
-  const guild = await UserSchema.findOne({ id: guildId }).lean();
-  if (guild) return guild;
-  const query = new UserSchema({ id: guildId });
+const fetchOrCreateUser = async (userId) => {
+  const user = await UserSchema.findOne({ id: userId }).lean();
+  if (user) return user;
+  const query = new UserSchema({ id: userId });
   await query.save();
 
   return query;
