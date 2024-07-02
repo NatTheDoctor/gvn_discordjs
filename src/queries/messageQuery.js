@@ -18,7 +18,7 @@ const fetchOrCreateMessage = async (m) => {
 const getAllMessage = async (message) => {
   const threeMinutesAgo = new Date(Date.now() - 3 * 60 * 1000); // 3 minutes ago
   const messages = await MessageSchema.find({
-    $not: { userId: message.author.id },
+    userId: { $ne: message.author.id },
     channelId: message.channelId,
     timestamp: { $gte: threeMinutesAgo }, // timestamp is greater than or equal to 3 minutes ago
   });
