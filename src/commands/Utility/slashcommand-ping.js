@@ -1,7 +1,7 @@
 const { ChatInputCommandInteraction } = require("discord.js");
 const DiscordBot = require("../../client/DiscordBot");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
-const UserSchema = require("../../schema/user");
+const { fetchOrCreateUser } = require("../../queries/userQuery");
 
 module.exports = new ApplicationCommand({
   command: {
@@ -19,13 +19,7 @@ module.exports = new ApplicationCommand({
    * @param {ChatInputCommandInteraction} interaction
    */
   run: async (client, interaction) => {
-    let user = await UserSchema.findOne({ id: interaction.member.id });
-    if (user == null) {
-      user = new UserSchema({
-        id: interaction.member.id,
-      });
-      user.save();
-    }
+    let user = await fetchOrCreateUser(interaction.user.id);
     console.log(user);
     await interaction.reply({
       content: "**Pong!** " + client.ws.ping + "ms",
