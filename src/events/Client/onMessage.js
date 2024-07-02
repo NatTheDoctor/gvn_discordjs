@@ -33,9 +33,9 @@ module.exports = new Event({
     await statsInc(member.id, StatsField.COIN, 1);
 
     if (isDebuff(id)) {
-      error("false");
+      success("false");
     } else {
-      error("true");
+      success("true");
     }
     success(
       `${message.channel.name} ${user.userName}: coin ${user.coin}, exp ${user.exp}`
