@@ -9,10 +9,10 @@ const { fetchUser } = require("../../queries/userQuery");
 module.exports = new Event({
   event: "messageCreate",
   once: false,
-  run: async (__client__, message) => {
+  run: (__client__, message) => {
     const author = message.author;
     const id = author.id;
-    const user = await fetchUser(id);
+    const user = fetchUser(id);
     if (user === null) {
       console.log("wrong");
     } else {
