@@ -29,8 +29,7 @@ const statsInc = async (id, field) => {
   let user = await fetchUser(id);
   if (user === null) return;
   console.log(field);
-  user.field += 1;
-  console.log(user);
+  user[field] += 1;
   await user.save();
 };
 
