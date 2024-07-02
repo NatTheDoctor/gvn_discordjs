@@ -13,8 +13,8 @@ const fetchOrCreateMessage = async (m) => {
   return query;
 };
 
-const getAllMessage = async () => {
-  const messages = await MessageSchema.find();
+const getAllMessage = async (channelId) => {
+  const messages = await MessageSchema.find({ channelId: channelId });
   return messages.length;
 };
 
