@@ -28,15 +28,15 @@ const fetchOrCreateUser = async (member) => {
 const statsInc = async (id, field, amount) => {
   let user = await fetchUser(id);
   if (user === null) return;
-  if (field === StatsField.COIN && user.coin >= user.maxCoin) {
-    user[field] = user.maxCoin;
-  }
-  if (field === StatsField.EXP && user.exp >= user.maxExp) {
-    user.level += 1;
-    user[field] = 0;
-    user.maxExp = (user.maxExp + 124) * 1.19;
-  }
   user[field] += amount;
+  if (field === StatsField.EXP && user.exp > user.maxExp) {
+    const levelsGained = Math.floor(user.exp / user.maxExp);
+    user.level += levelsGained;
+    user.exp -= levelsGained * user.maxExp;
+    user.maxExp = (user.maxExp + 124) * 1.19;
+  } else if (field === StatsField.COIN && user.coin > user.maxCoin) {
+    user.coin = user.maxCoin;
+  }
   await user.save();
 };
 
