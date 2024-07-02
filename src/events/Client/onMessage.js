@@ -14,6 +14,8 @@ const {
   isDebuff,
 } = require("../../queries/userQuery");
 
+const random = Math.floor(Math.random() * 3);
+
 module.exports = new Event({
   event: "messageCreate",
   once: false,
@@ -30,8 +32,8 @@ module.exports = new Event({
     if (user === null) {
       return await fetchOrCreateUser(member);
     }
-    await statsInc(member.id, StatsField.EXP, 25);
-    await statsInc(member.id, StatsField.COIN, 1);
+    await statsInc(member.id, StatsField.EXP, random);
+    await statsInc(member.id, StatsField.COIN, random);
 
     if (isDebuff(id)) {
       success("false");
