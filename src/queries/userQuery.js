@@ -30,6 +30,7 @@ const statsInc = async (id, field) => {
   if (user === null) return;
   console.log(field);
   user.field += 1;
+  console.log(user);
   await user.save();
 };
 
