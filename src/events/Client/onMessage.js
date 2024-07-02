@@ -8,8 +8,8 @@ const {
 module.exports = new Event({
   event: "messageCreate",
   once: false,
-  run: (__client__, message) => {
-    fetchOrCreateMessage(message);
+  run: async (__client__, message) => {
+    await fetchOrCreateMessage(message);
     console.log(getAllMessage());
   },
 }).toJSON();
