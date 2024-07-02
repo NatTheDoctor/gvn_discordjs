@@ -6,7 +6,6 @@ module.exports = new Event({
   event: "messageCreate",
   once: false,
   run: (__client__, message) => {
-    console.log(message);
     //fetchOrCreateMessage(message);
   },
 }).toJSON();
