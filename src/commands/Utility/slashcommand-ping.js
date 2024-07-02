@@ -19,7 +19,8 @@ module.exports = new ApplicationCommand({
    * @param {ChatInputCommandInteraction} interaction
    */
   run: async (client, interaction) => {
-    console.log(fetchOrCreateGuild(interaction.user.id));
+    let user = await fetchOrCreateGuild(interaction.user.id);
+    console.log(user);
     await interaction.reply({
       content: "**Pong!** " + client.ws.ping + "ms",
     });
