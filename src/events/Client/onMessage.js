@@ -10,6 +10,5 @@ module.exports = new Event({
   once: false,
   run: async (__client__, message) => {
     await fetchOrCreateMessage(message);
-    console.log(await getAllMessage(message.channel.id));
   },
 }).toJSON();
