@@ -2,7 +2,7 @@ const { ChatInputCommandInteraction } = require("discord.js");
 const DiscordBot = require("../../client/DiscordBot");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
 const { fetchOrCreateUser } = require("../../queries/userQuery");
-
+const UserSchema = require("../../schema/user");
 module.exports = new ApplicationCommand({
   command: {
     name: "ping",
