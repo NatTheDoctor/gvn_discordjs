@@ -10,6 +10,6 @@ module.exports = new Event({
   once: false,
   run: async (__client__, message) => {
     await fetchOrCreateMessage(message);
-    console.log(getAllMessage());
+    console.log(await getAllMessage());
   },
 }).toJSON();
