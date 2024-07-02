@@ -17,7 +17,10 @@ module.exports = new Event({
   run: async (__client__, message, client) => {
     const author = message.author;
     const id = author.id;
-    const member = client.users.cache.get(id);
+    const member = await client.guilds.cache
+      .get(msg.guildId)
+      .members.fetch()
+      .map((u) => u.user.id == id);
     console.log(member);
     const user = await fetchUser(id);
     if (user === null) await fetchOrCreateUser(member);
