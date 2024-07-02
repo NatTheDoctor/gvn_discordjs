@@ -1,7 +1,7 @@
 const { ChatInputCommandInteraction } = require("discord.js");
 const DiscordBot = require("../../client/DiscordBot");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
-const { fetchOrCreateGuild } = require("../../queries/userQuery");
+const { fetchOrCreateUser } = require("../../queries/userQuery");
 
 module.exports = new ApplicationCommand({
   command: {
@@ -19,7 +19,7 @@ module.exports = new ApplicationCommand({
    * @param {ChatInputCommandInteraction} interaction
    */
   run: async (client, interaction) => {
-    let user = await fetchOrCreateGuild(interaction.user.id);
+    let user = await fetchOrCreateUser(interaction.user.id);
     console.log(user);
     await interaction.reply({
       content: "**Pong!** " + client.ws.ping + "ms",
