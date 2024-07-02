@@ -13,6 +13,12 @@ const fetchOrCreateMessage = async (m) => {
   return query;
 };
 
+const getAllMessage = async () => {
+  const messages = await MessageSchema.find();
+  return messages.length;
+};
+
 module.exports = {
   fetchOrCreateMessage,
+  getAllMessage,
 };
