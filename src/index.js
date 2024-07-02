@@ -9,7 +9,7 @@ const client = new DiscordBot();
 module.exports = client;
 
 client.connect();
-connect(process.env.MONGO_URI, {
+connect(`${process.env.MONGO_URI}`, {
   connectTimeoutMS: 60000,
 }).catch(console.error);
 process.on("unhandledRejection", console.error);
