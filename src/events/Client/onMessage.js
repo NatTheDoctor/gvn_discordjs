@@ -21,7 +21,10 @@ module.exports = new Event({
     const member = await guild.members.fetch(id);
     const user = await fetchUser(id);
     console.log(user);
-    if (user === null) await fetchOrCreateUser(member);
+    if (user === null) {
+      console.log("DONe");
+      await fetchOrCreateUser(member);
+    }
     statsInc(member.id, StatsField.EXP);
 
     success(user);
