@@ -34,9 +34,9 @@ module.exports = new Event({
       return await fetchOrCreateUser(member);
     }
     var status = await isDebuff(id);
-    const sentDate = moment(message.createdTimestamp * 1000).format(
-      "DD/MM/YYYY HH:mm:ss"
-    );
+    const sentDate = moment
+      .unix(message.createdTimestamp / 1000)
+      .format("DD/MM/YYYY HH:mm:ss");
     await statsInc(member.id, StatsField.EXP, random);
     await statsInc(member.id, StatsField.COIN, random);
 
