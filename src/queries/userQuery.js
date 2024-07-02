@@ -16,6 +16,6 @@ const updateGuild = async (guildId, data) => {
 };
 
 module.exports = {
-  fetchOrCreateGuild,
+  fetchOrCreateUser,
   updateGuild,
 };
