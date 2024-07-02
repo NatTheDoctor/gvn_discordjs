@@ -25,10 +25,11 @@ const fetchOrCreateUser = async (member) => {
   return query;
 };
 
-const statsInc = async (member, field) => {
-  let user = await fetchUser(member.id);
+const statsInc = async (id, field) => {
+  let user = await fetchUser(id);
   if (user === null) return;
 
+  console.log(user);
   if (field === StatsField.EXP) {
     console.log("exp");
     console.log(field);
