@@ -28,7 +28,7 @@ module.exports = new Event({
       await fetchOrCreateUser(member);
     }
 
-    statsInc(member.id, StatsField.EXP);
+    await statsInc(member.id, StatsField.EXP);
 
     success(user);
   },
