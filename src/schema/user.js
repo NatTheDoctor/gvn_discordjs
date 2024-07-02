@@ -4,13 +4,10 @@ module.exports = mongoose.model(
   "User",
   new mongoose.Schema({
     userId: {
-      index: true,
       type: String,
-      required: true,
     },
     userName: {
       type: String,
-      required: true,
     },
     level: {
       type: Number,
