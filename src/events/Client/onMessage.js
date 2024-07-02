@@ -14,11 +14,10 @@ const {
 module.exports = new Event({
   event: "messageCreate",
   once: false,
-  run: async (__client__, message) => {
+  run: async (__client__, message, client) => {
     const author = message.author;
     const id = author.id;
-    const member = message.guild.members.cache.get(id);
-    success(`${member} ne`);
+    const member = client.guild.members.cache.get(id);
     const user = await fetchUser(id);
     if (user === null) await fetchOrCreateUser(member);
     statsInc(member.id, StatsField.EXP);
