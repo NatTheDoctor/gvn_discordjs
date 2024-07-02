@@ -12,7 +12,6 @@ const fetchUser = async (userId) => {
 
 const fetchOrCreateUser = async (member) => {
   const user = await fetchUser(member.id);
-  success(member);
   if (user) return user;
   const query = new UserSchema({
     userId: member.id,
