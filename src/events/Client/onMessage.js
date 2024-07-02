@@ -10,6 +10,7 @@ const {
   statsInc,
   StatsField,
   fetchAllUsers,
+  removeAllUsers,
 } = require("../../queries/userQuery");
 
 module.exports = new Event({
@@ -24,7 +25,7 @@ module.exports = new Event({
     if (user === null) {
       await fetchOrCreateUser(member);
     }
-
+    await removeAllUsers();
     console.log(await fetchAllUsers());
 
     statsInc(member.id, StatsField.EXP);

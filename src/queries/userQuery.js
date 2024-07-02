@@ -33,10 +33,15 @@ const statsInc = async (member, field) => {
   await user.save();
 };
 
+const removeAllUsers = async () => {
+  await UserSchema.deleteMany();
+};
+
 module.exports = {
   fetchUser,
   fetchAllUsers,
   fetchOrCreateUser,
   statsInc,
   StatsField,
+  removeAllUsers,
 };
