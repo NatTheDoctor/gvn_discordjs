@@ -26,12 +26,12 @@ module.exports = new Event({
 
     const user = await fetchUser(id);
     if (user === null) {
-      await fetchOrCreateUser(member);
-      return;
+      return await fetchOrCreateUser(member);
     }
     await statsInc(member.id, StatsField.EXP, 1);
     await statsInc(member.id, StatsField.COIN, 1);
 
-    await success(`${user.userName}: coin ${user.coin}, exp ${user.exp} `);
+    await success(`${user.userName}: coin ${user.coin}, exp ${user.exp}`);
+    success(user);
   },
 }).toJSON();
