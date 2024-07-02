@@ -18,7 +18,7 @@ module.exports = new Event({
     const author = message.author;
     const id = author.id;
     const member = await client.guilds.cache
-      .get(msg.guildId)
+      .get(message.guildId)
       .members.fetch()
       .map((u) => u.user.id == id);
     console.log(member);
