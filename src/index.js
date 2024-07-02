@@ -10,7 +10,7 @@ const client = new DiscordBot();
 module.exports = client;
 
 client.connect();
-connect(process.env.MONGO_URI, {
+connect("mongodb://nat:24021999@192.168.4.70:27017/nat", {
   connectTimeoutMS: 60000,
 })
   .then(() => {
