@@ -35,16 +35,12 @@ module.exports = new Event({
     await statsInc(member.id, StatsField.EXP, random);
     await statsInc(member.id, StatsField.COIN, random);
 
-    if (isDebuff(id)) {
-      success("false");
-    } else {
-      success("true");
-    }
-    success(user);
     const endTime = performance.now();
     const executionTime = (endTime - startTime).toFixed(1);
     success(
-      `${message.channel.name} ${user.userName}: coin ${user.coin}, exp ${user.exp} ${executionTime} ms`
+      `${message.channel.name} ${user.userName} (${isDebuff(id)}): coin ${
+        user.coin
+      }, exp ${user.exp} ${executionTime} ms`
     );
   },
 }).toJSON();
