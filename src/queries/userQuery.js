@@ -15,7 +15,7 @@ const fetchOrCreateUser = async (member) => {
   if (user) return user;
   const query = new UserSchema({
     userId: member.id,
-    userName: member.displayName,
+    userName: member.nickname,
   });
   await query.save();
   return query;
