@@ -38,15 +38,28 @@ const statsInc = async (id, field, amount) => {
   await user.save();
 };
 
+const isDebuff = async (id) => {
+  let user = await fetchUser(id);
+  if (user === null) return;
+  let status = user.status;
+
+  return (
+    status.isCaptive === true ||
+    status.isDeceased === true ||
+    status.isParanoid === true
+  );
+};
+
 const removeAllUsers = async () => {
   await UserSchema.deleteMany();
 };
 
 module.exports = {
+  StatsField,
   fetchUser,
   fetchAllUsers,
   fetchOrCreateUser,
   statsInc,
-  StatsField,
+  isDebuff,
   removeAllUsers,
 };
