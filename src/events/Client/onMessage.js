@@ -27,7 +27,6 @@ module.exports = new Event({
     if (user === null) {
       await fetchOrCreateUser(member);
     }
-    console.log(await fetchAllUsers());
 
     statsInc(member.id, StatsField.EXP);
 

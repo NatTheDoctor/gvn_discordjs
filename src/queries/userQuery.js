@@ -29,6 +29,10 @@ const statsInc = async (member, field) => {
   let user = await fetchUser(member.id);
   if (user === null) return;
 
+  if (field === StatsField.EXP) {
+    console.log("exp");
+    console.log(field);
+  }
   user.field += 1;
   await user.save();
 };
