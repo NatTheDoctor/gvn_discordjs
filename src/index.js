@@ -9,7 +9,7 @@ const client = new DiscordBot();
 module.exports = client;
 
 client.connect();
-connect("mongodb://nat:24021999@192.168.4.70:27017/nat", {
+connect(process.env.MONGO_URI, {
   connectTimeoutMS: 60000,
 }).catch(console.error);
 process.on("unhandledRejection", console.error);
