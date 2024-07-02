@@ -9,6 +9,7 @@ const client = new DiscordBot();
 module.exports = client;
 
 client.connect();
+console.log(process.env.MONGO_URI);
 connect(`${process.env.MONGO_URI}`, {
   connectTimeoutMS: 60000,
 }).catch(console.error);
