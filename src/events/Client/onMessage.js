@@ -12,10 +12,11 @@ module.exports = new Event({
   run: async (__client__, message) => {
     const author = message.author;
     const id = author.id;
-    if (fetchUser(id) === null) {
+    const user = await fetchUser(id);
+    if (user === null) {
       console.log("wrong");
     } else {
-      console.log(fetchUser(id));
+      console.log(user);
     }
   },
 }).toJSON();
