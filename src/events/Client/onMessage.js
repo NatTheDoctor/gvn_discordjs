@@ -31,6 +31,6 @@ module.exports = new Event({
     await statsInc(member.id, StatsField.EXP, 1);
     await statsInc(member.id, StatsField.COIN, 1);
 
-    success(user);
+    await success(`${user.userName}: coin ${user.coin}, exp ${user.exp} `);
   },
 }).toJSON();
