@@ -20,6 +20,12 @@ module.exports = new ApplicationCommand({
    */
   run: async (client, interaction) => {
     let user = await UserSchema.findOne({ id: interaction.member.id });
+    if (user == null) {
+      user = new UserSchema({
+        id: interaction.member.id,
+      });
+      user.save();
+    }
     console.log(user);
     await interaction.reply({
       content: "**Pong!** " + client.ws.ping + "ms",
