@@ -13,10 +13,6 @@ module.exports = new Event({
     const author = message.author;
     const id = author.id;
     const user = await fetchUser(id);
-    if (user === null) {
-      await fetchOrCreateUser(message.member);
-    } else {
-      console.log(user);
-    }
+    if (user === null) await fetchOrCreateUser(message.member);
   },
 }).toJSON();
