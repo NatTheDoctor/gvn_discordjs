@@ -1,5 +1,6 @@
 const { success } = require("../../utils/Console");
 const Event = require("../../structure/Event");
+const moment = require("moment");
 const {
   fetchOrCreateMessage,
   getAllMessage,
@@ -32,14 +33,17 @@ module.exports = new Event({
     if (user === null) {
       return await fetchOrCreateUser(member);
     }
+    var status = await isDebuff(id);
+    const sentDate = moment(message.activity.createdTimestamp * 1000).format(
+      "DD/MM/YYYY HH:mm:ss"
+    );
     await statsInc(member.id, StatsField.EXP, random);
     await statsInc(member.id, StatsField.COIN, random);
 
-    var status = await isDebuff(id);
     const endTime = performance.now();
     const executionTime = (endTime - startTime).toFixed(1);
     success(
-      `${message.createdTimestamp} ${message.channel.name} ${user.userName} (${status}): coin ${user.coin}, exp ${user.exp} ${executionTime} ms`
+      `[${sentDate}] ${message.channel.name} ${user.userName} (${status}): coin ${user.coin}, exp ${user.exp} ${executionTime} ms`
     );
   },
 }).toJSON();
