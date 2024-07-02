@@ -18,6 +18,7 @@ module.exports = new ApplicationCommand({
    * @param {ChatInputCommandInteraction} interaction
    */
   run: async (client, interaction) => {
+    console.log("a");
     await interaction.reply({
       content: "**Pong!** " + client.ws.ping + "ms",
     });
