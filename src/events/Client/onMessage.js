@@ -4,7 +4,12 @@ const {
   fetchOrCreateMessage,
   getAllMessage,
 } = require("../../queries/messageQuery");
-const { fetchUser, fetchOrCreateUser } = require("../../queries/userQuery");
+const {
+  fetchUser,
+  fetchOrCreateUser,
+  statsInc,
+  StatsField,
+} = require("../../queries/userQuery");
 
 module.exports = new Event({
   event: "messageCreate",
@@ -12,7 +17,11 @@ module.exports = new Event({
   run: async (__client__, message) => {
     const author = message.author;
     const id = author.id;
+    const member = message.members.cache.get(id);
     const user = await fetchUser(id);
-    if (user === null) await fetchOrCreateUser(message.member);
+    if (user === null) await fetchOrCreateUser(member);
+    statsInc(member.id, StatsField.EXP);
+
+    success(user);
   },
 }).toJSON();

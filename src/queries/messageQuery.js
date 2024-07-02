@@ -11,7 +11,6 @@ const fetchOrCreateMessage = async (m) => {
     timestamp: m.createdAt,
   });
   await query.save();
-  success(`${m.author.displayName} sent in ${m.channel.name}`);
   return query;
 };
 
