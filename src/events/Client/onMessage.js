@@ -28,7 +28,6 @@ module.exports = new Event({
     if (user === null) {
       await fetchOrCreateUser(member);
     }
-    await removeAllUsers();
     await statsInc(member.id, StatsField.EXP, 1);
     await statsInc(member.id, StatsField.COIN, 1);
 
