@@ -29,6 +29,7 @@ module.exports = new Event({
     }
 
     await statsInc(member.id, StatsField.EXP);
+    await statsInc(member.id, StatsField.COIN);
 
     success(user);
   },
