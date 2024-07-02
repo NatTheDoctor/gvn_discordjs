@@ -40,6 +40,7 @@ module.exports = new Event({
     } else {
       success("true");
     }
+    success(user);
     const endTime = performance.now();
     const executionTime = (endTime - startTime).toFixed(1);
     success(
