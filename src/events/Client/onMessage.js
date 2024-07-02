@@ -17,7 +17,9 @@ module.exports = new Event({
   run: async (__client__, message) => {
     const author = message.author;
     const id = author.id;
-    const member = await __client__.users.fetch(id);
+    const guild = message.guild;
+    const member = await guild.members.fetch(id);
+    console.log(member);
     const user = await fetchUser(id);
     if (user === null) await fetchOrCreateUser(member);
     statsInc(member.id, StatsField.EXP);
