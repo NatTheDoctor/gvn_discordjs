@@ -7,7 +7,7 @@ const StatsField = {
 };
 
 const fetchUser = async (userId) => {
-  return await UserSchema.findOne({ userId: userId }).lean();
+  return await UserSchema.findOne({ userId: userId });
 };
 
 const fetchOrCreateUser = async (member) => {
