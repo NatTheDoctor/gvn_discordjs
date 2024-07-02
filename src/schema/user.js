@@ -56,6 +56,12 @@ module.exports = mongoose.model(
           default: 0,
         },
       },
+      default: () => ({
+        isParanoid: false,
+        isDeceased: false,
+        isCaptive: false,
+        count: 0,
+      }),
     },
     messageCount: {
       type: Number,
