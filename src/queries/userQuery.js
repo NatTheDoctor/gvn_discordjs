@@ -3,7 +3,7 @@ const UserSchema = require("../schema/user");
 const fetchOrCreateGuild = async (guildId) => {
   const guild = await UserSchema.findOne({ id: guildId }).lean();
   if (guild) return guild;
-  const query = new GuildSchema({ id: guildId });
+  const query = new UserSchema({ id: guildId });
   await query.save();
 
   return query;
