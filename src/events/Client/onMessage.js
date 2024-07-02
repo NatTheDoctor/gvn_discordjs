@@ -4,7 +4,7 @@ const {
   fetchOrCreateMessage,
   getAllMessage,
 } = require("../../queries/messageQuery");
-const { fetchUser } = require("../../queries/userQuery");
+const { fetchUser, fetchOrCreateUser } = require("../../queries/userQuery");
 
 module.exports = new Event({
   event: "messageCreate",
@@ -14,7 +14,7 @@ module.exports = new Event({
     const id = author.id;
     const user = await fetchUser(id);
     if (user === null) {
-      console.log("wrong");
+      await fetchOrCreateUser(message.member);
     } else {
       console.log(user);
     }
