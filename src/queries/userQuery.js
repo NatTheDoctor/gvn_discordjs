@@ -12,13 +12,6 @@ const fetchOrCreateUser = async (member) => {
   return query;
 };
 
-const updateGuild = async (guildId, data) => {
-  return await UserSchema.findOneAndUpdate({ id: guildId }, data, {
-    upsert: true,
-  });
-};
-
 module.exports = {
   fetchOrCreateUser,
-  updateGuild,
 };
