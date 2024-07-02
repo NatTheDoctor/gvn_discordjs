@@ -10,6 +10,10 @@ const fetchUser = async (userId) => {
   return await UserSchema.findOne({ userId: userId });
 };
 
+const fetchAllUsers = async (userId) => {
+  return await UserSchema.find();
+};
+
 const fetchOrCreateUser = async (member) => {
   const user = await fetchUser(member.id);
   if (user) return user;
@@ -31,6 +35,7 @@ const statsInc = async (member, field) => {
 
 module.exports = {
   fetchUser,
+  fetchAllUsers,
   fetchOrCreateUser,
   statsInc,
   StatsField,
