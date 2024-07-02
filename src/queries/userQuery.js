@@ -25,7 +25,7 @@ const fetchOrCreateUser = async (member) => {
   return query;
 };
 
-const statsInc = async (id, field) => {
+const statsInc = async (id, field, amount) => {
   let user = await fetchUser(id);
   if (user === null) return;
   if (field === StatsField.COIN && user.coin === user.maxCoin) return;
@@ -34,7 +34,7 @@ const statsInc = async (id, field) => {
     user.exp = 0;
     user.maxExp = (user.maxExp + 124) * 1.19;
   }
-  user[field] += 1;
+  user[field] += amount;
   await user.save();
 };
 
