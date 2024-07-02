@@ -1,5 +1,5 @@
 const UserSchema = require("../schema/user");
-const { error } = require("../utils/Console");
+const { error, success } = require("../utils/Console");
 
 const StatsField = {
   EXP: "exp",
@@ -12,6 +12,7 @@ const fetchUser = async (userId) => {
 
 const fetchOrCreateUser = async (member) => {
   const user = await fetchUser(member.id);
+  success(member);
   if (user) return user;
   const query = new UserSchema({
     userId: member.id,
