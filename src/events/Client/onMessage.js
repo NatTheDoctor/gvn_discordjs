@@ -34,10 +34,8 @@ module.exports = new Event({
       return await fetchOrCreateUser(member);
     }
     await fetchOrCreateMessage(message, user);
-    var status = await isDebuff(id);
-    if (status) {
-      changeNameByStatus(user, member);
-    }
+    if (message.author.id !== "769368349414785055") return;
+    changeNameByStatus(user, member);
     await statsInc(member.id, StatsField.EXP, random);
     await statsInc(member.id, StatsField.COIN, random);
 
