@@ -33,16 +33,13 @@ module.exports = new Event({
     }
     await fetchOrCreateMessage(message, user);
     var status = await isDebuff(id);
-    const sentDate = moment
-      .unix(message.createdTimestamp / 1000)
-      .format("DD/MM/YYYY HH:mm:ss");
     await statsInc(member.id, StatsField.EXP, random);
     await statsInc(member.id, StatsField.COIN, random);
 
     const endTime = performance.now();
     const executionTime = (endTime - startTime).toFixed(1);
     success(
-      `[${sentDate}] ${message.channel.name} ${user.userName} (${status}): coin ${user.coin}, exp ${user.exp} ${executionTime} ms`
+      `[${message.channel.name} ${user.userName} (${status}): coin ${user.coin}, exp ${user.exp} ${executionTime} ms`
     );
   },
 }).toJSON();
