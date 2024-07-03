@@ -31,7 +31,8 @@ module.exports = new Event({
     if (user === null) {
       return await fetchOrCreateUser(member);
     }
-    await fetchOrCreateMessage(message, user);
+    let messager = await fetchOrCreateMessage(message, user);
+    success(messager);
     var status = await isDebuff(id);
     const sentDate = moment
       .unix(message.createdTimestamp / 1000)
