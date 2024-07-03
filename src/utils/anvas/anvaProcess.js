@@ -5,15 +5,13 @@ const processAnva = async (author, members) => {
   let firstTarget = await fetchUser(members[0]);
   let secondTarget = null;
   let str = "";
-  let random = Math.floor(Math.random() * 6) + 1;
+  let random = 1; //Math.floor(Math.random() * 6) + 1;
   if (members.length > 1) {
     secondTarget = await fetchUser(members[1]);
   }
-  console.log(firstTarget);
-  console.log(secondTarget);
   switch (random) {
-    case 1:
-      str = await case1();
+    case 1: //Author win, firstTarget mất tiền
+      str = await case1(author, firstTarget);
       break;
     case 2:
       str = "2";
