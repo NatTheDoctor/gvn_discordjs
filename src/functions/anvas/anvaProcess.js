@@ -1,4 +1,10 @@
-const { fetchUser, statsInc, StatsField } = require("../../queries/userQuery");
+const {
+  fetchUser,
+  statsInc,
+  StatsField,
+  setDebuff,
+  StatusField,
+} = require("../../queries/userQuery");
 
 const ICON = {
   ICON_BAKIEN: "\uD83D\uDC51",
@@ -102,8 +108,10 @@ const case4 = async (author, target, amount) => {
   let str = "";
   if (authorChance <= 50) {
     str += `\n\`${author.userName}\`: ${ICON.EMO_DECEASED}`;
+    await setDebuff(author.userId, StatusField.DECEASED, true);
   } else {
     str += `\n\`${author.userName}\`: ${ICON.EMO_PARANOID}`;
+    await setDebuff(author.userId, StatusField.PARANOID, true);
   }
 
   if (targetChance <= 50) {
