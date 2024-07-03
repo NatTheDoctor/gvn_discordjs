@@ -20,7 +20,7 @@ const anvaProcess = async (author, members) => {
   let secondTarget = null;
   let str = "";
   let amount = 2;
-  let random = 3; //Math.floor(Math.random() * 6) + 1;
+  let random = 4; //Math.floor(Math.random() * 6) + 1;
   if (members.length > 1) {
     secondTarget = await fetchUser(members[1]);
   }
@@ -35,13 +35,13 @@ const anvaProcess = async (author, members) => {
       str = case3(author, firstTarget, amount);
       break;
     case 4:
-      str = "4";
+      str = case4(author, firstTarget, amount);
       break;
     case 5:
-      str = "5";
+      str = case5(author, firstTarget, amount);
       break;
     case 6:
-      str = "6";
+      str = case6(author, firstTarget, amount);
       break;
     case 7:
       str = "7";
@@ -93,4 +93,42 @@ const case3 = async (author, target, amount) => {
   }
   return `đánh hoà với <@${target.userId}>,${str}`;
 };
+
+const case4 = async (author, target, amount) => {
+  let nickname =
+    target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
+  let authorChance = Math.floor(Math.random() * 100);
+  let targetChance = Math.floor(Math.random() * 100);
+  let str = "";
+  if (authorChance <= 50) {
+    str += `\n\`${author.userName}\`: ${EMO_DECEASED}`;
+  } else {
+    str += `\n\`${author.userName}\`: ${EMO_PARANOID}`;
+  }
+
+  if (targetChance <= 50) {
+    str += `\n\`${nickname}\`: ${EMO_DECEASED}`;
+  } else {
+    str += `\n\`${nickname}\`: ${EMO_PARANOID}`;
+  }
+  return `đấm <@${target.userId}> giường chiếu rung chuyển, hai đứa thượng mã phong, không biết điên chết\``;
+};
+
+const case5 = async (author, target, amount) => {
+  let nickname =
+    target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
+
+  let lossCoin = Math.floor(Math.random() * amount);
+  await statsInc(author.userId, StatsField.COIN, amount - lossCoin);
+  await statsInc(target.userId, StatsField.COIN, -amount);
+
+  await statsInc(author.userId, StatsField.EXP, amount);
+  await statsInc(target.userId, StatsField.EXP, -amount);
+  return `đang đấm <@${target.userId}> , loot thì ít mà rớt thì nhiều\n\`${
+    author.userName
+  }\`: **+${amount - lossCoin}** ${
+    ICON.ICON_COIN
+  }\n${nickname}: **-${amount}** ${ICON.ICON_COIN}`;
+};
+
 module.exports = { anvaProcess, ICON, ROLE };

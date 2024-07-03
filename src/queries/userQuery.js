@@ -61,8 +61,21 @@ const isDebuff = async (id) => {
 const setDebuff = async (id, field, flag) => {
   let user = await fetchUser(id);
   if (user === null) return;
+  let amount;
+  if (flag == true) {
+    if (field === StatusField.DECEASED || field === StatusField.PARANOID) {
+      amount = Math.floor(Math.random() * 6) + 2;
+    } else if (field === StatusField.CAPTIVE) {
+      amount = Math.floor(Math.random() * 25) + 20;
+    }
+    user.status.count += amount;
+  }
   user.status[field] = flag;
-  user.save();
+  user.save().then((doc) => {
+    success(
+      `Updated ${doc.userName} ${doc.status[field]}: ${doc.status.count} `
+    );
+  });
 };
 
 const removeAllUsers = async () => {
