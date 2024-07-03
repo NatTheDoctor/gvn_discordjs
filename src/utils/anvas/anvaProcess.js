@@ -1,4 +1,4 @@
-const processAnva = async () => {
+const processAnva = async (members) => {
   let str = "";
   let random = Math.floor(Math.random() * 6) + 1;
   switch (random) {

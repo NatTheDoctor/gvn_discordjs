@@ -20,11 +20,17 @@ module.exports = new ApplicationCommand({
    * @param {ChatInputCommandInteraction} interaction
    */
   run: async (client, interaction) => {
+    let embed = new EmbedBuilder();
     let id = interaction.user.id;
     let members = await getAllMessage(interaction);
+    if (members.length < 1) {
+      embed.setDescription(
+        `#${interaction.channel.name}\nKhông có ai để ăn vạ`
+      );
+      return await interaction.reply({ embeds: [embed], ephemeral: true });
+    }
 
-    let result = await processAnva();
-    let embed = new EmbedBuilder().setDescription(result);
+    let result = await processAnva(members);
 
     await interaction.reply({ embeds: [embed], ephemeral: true });
   },
