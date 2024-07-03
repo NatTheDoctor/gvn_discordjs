@@ -111,7 +111,7 @@ const case4 = async (author, target, amount) => {
   } else {
     str += `\n\`${nickname}\`: ${ICON.EMO_PARANOID}`;
   }
-  return `đấm <@${target.userId}> giường chiếu rung chuyển, hai đứa thượng mã phong, không biết điên chết\``;
+  return `đấm <@${target.userId}> giường chiếu rung chuyển, hai đứa thượng mã phong, không biết điên chết ${str}`;
 };
 
 const case5 = async (author, target, amount) => {
