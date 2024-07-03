@@ -6,6 +6,12 @@ const StatsField = {
   COIN: "coin",
 };
 
+const StatusField = {
+  PARANOID: "isParanoid",
+  DECEASED: "isDeceased",
+  CAPTIVE: "isCaptive",
+};
+
 const fetchUser = async (userId) => {
   return await UserSchema.findOne({ userId: userId });
 };
@@ -52,16 +58,25 @@ const isDebuff = async (id) => {
   );
 };
 
+const setDebuff = async (id, field, flag) => {
+  let user = await fetchUser(id);
+  if (user === null) return;
+  user.status[field] = flag;
+  user.save();
+};
+
 const removeAllUsers = async () => {
   await UserSchema.deleteMany();
 };
 
 module.exports = {
   StatsField,
+  StatusField,
   fetchUser,
   fetchAllUsers,
   fetchOrCreateUser,
   statsInc,
   isDebuff,
+  setDebuff,
   removeAllUsers,
 };

@@ -1,7 +1,12 @@
 const { ChatInputCommandInteraction } = require("discord.js");
 const DiscordBot = require("../../client/DiscordBot");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
-const { fetchOrCreateUser } = require("../../queries/userQuery");
+const {
+  fetchOrCreateUser,
+  fetchUser,
+  setDebuff,
+  StatusField,
+} = require("../../queries/userQuery");
 const { fetchOrCreateMessage } = require("../../queries/messageQuery");
 
 module.exports = new ApplicationCommand({
@@ -20,10 +25,9 @@ module.exports = new ApplicationCommand({
    * @param {ChatInputCommandInteraction} interaction
    */
   run: async (client, interaction) => {
-    let user = await fetchOrCreateUser(interaction.member);
-    console.log(user);
-    let message = await fetchOrCreateMessage(interaction.member.id);
-    console.log(message);
+    let profile = await fetchUser(interaction.user.id);
+    if (profile === null) return;
+    await setDebuff(profile.userId, StatusField.DECEASED, true);
     await interaction.reply({
       content: "**Pong!** " + client.ws.ping + "ms",
     });

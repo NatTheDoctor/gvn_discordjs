@@ -11,8 +11,5 @@ module.exports = new Event({
     if (profile === null) return;
     profile.userName = newMember.nickname;
     profile.save();
-    success(profile);
-    success(message.nickname);
-    success(newMember.nickname);
   },
 }).toJSON();
