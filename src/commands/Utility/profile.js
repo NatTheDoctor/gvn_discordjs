@@ -22,6 +22,7 @@ module.exports = new ApplicationCommand({
     if (profile === null) return;
 
     embed.setDescription(`
+      Trạng thái: ${profile.status.count}
       <:notcoin:988449419621990470>: ${profile.coin}
       🧪: ${((profile.exp / profile.maxExp) * 100).toFixed(2)}%
       `);
