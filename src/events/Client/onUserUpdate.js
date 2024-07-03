@@ -9,6 +9,8 @@ module.exports = new Event({
     const { author, id, guild, member } = await getMember(message);
     let profile = await fetchUser(id);
     if (profile === null) return;
+    profile.userName = newMember.nickname;
+    profile.save();
     success(profile);
     success(message.nickname);
     success(newMember.nickname);
