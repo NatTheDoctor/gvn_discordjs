@@ -21,7 +21,7 @@ module.exports = new ApplicationCommand({
     let profile = await fetchUser(interaction.user.id);
     if (profile === null) return;
 
-    embed.setThumbnail(interaction.user.displayAvatarURL);
+    embed.setThumbnail(interaction.user.avatarURL);
     embed.setDescription(`
       <:notcoin:988449419621990470>: ${profile.coin}
       🧪: ${((profile.exp / profile.maxExp) * 100).toFixed(2)}%
