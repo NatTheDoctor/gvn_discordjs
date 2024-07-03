@@ -50,21 +50,25 @@ module.exports = new Event({
 
 const changeNameByStatus = async (user, member) => {
   const status = user.status;
-  const icons = [];
   const nickname = member.nickname;
-  if (user.isBaKien) {
-    icons.push("\uD83D\uDC51");
-  }
-  if (status[StatusField.DECEASED]) {
-    icons.push("👻");
-  }
-  if (status[StatusField.PARANOID]) {
-    icons.push("\uD83E\uDD21");
-  }
-  if (status[StatusField.CAPTIVE]) {
-    icons.push("\uD83D\uDEB7");
-  }
-  const newNickname = icons.join("") + user.userName;
+  const userName = user.userName;
+
+  // Remove any existing icons from the nickname
+  const cleanNickname = nickname.replace(
+    /[\uD83D\uDC51\uD83E\uDD21\uD83D\uDEB7]/g,
+    ""
+  );
+
+  const newNickname =
+    [
+      user.isBaKien ? "\uD83D\uDC51" : "",
+      status[StatusField.DECEASED] ? "👻" : "",
+      status[StatusField.PARANOID] ? "\uD83E\uDD21" : "",
+      status[StatusField.CAPTIVE] ? "\uD83D\uDEB7" : "",
+    ]
+      .filter((icon) => icon !== "")
+      .join("") + cleanNickname;
+
   if (nickname !== newNickname) {
     member.setNickname(newNickname).then(console.log("success"));
   }
