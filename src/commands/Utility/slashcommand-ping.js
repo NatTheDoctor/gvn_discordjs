@@ -27,7 +27,7 @@ module.exports = new ApplicationCommand({
   run: async (client, interaction) => {
     let profile = await fetchUser(interaction.user.id);
     if (profile === null) return;
-    profile.status.isBaKien = true;
+    profile.isBaKien = true;
     profile.save();
     console.log(profile);
     await interaction.reply({
