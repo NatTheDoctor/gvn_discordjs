@@ -124,6 +124,7 @@ module.exports = {
   statsInc,
   isDebuff,
   setDebuff,
+  setBuff,
   decreaseDebuffCount,
   removeAllUsers,
 };
