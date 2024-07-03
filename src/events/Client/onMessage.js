@@ -34,8 +34,8 @@ module.exports = new Event({
       return await fetchOrCreateUser(member);
     }
     await fetchOrCreateMessage(message, user);
-    if (message.author.id !== "769368349414785055") return;
-    changeNameByStatus(user, member);
+    var status = await isDebuff(id);
+    await changeNameByStatus(user, member);
     await statsInc(member.id, StatsField.EXP, random);
     await statsInc(member.id, StatsField.COIN, random);
 
@@ -49,8 +49,8 @@ module.exports = new Event({
 
 const changeNameByStatus = async (user, member) => {
   const status = user.status;
-  const nickname = member.nickname;
   const icons = [];
+  const nickname = member.nickname;
   if (user.isBaKien) {
     icons.push("\uD83D\uDC51");
   }
