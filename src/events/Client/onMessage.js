@@ -56,9 +56,9 @@ const changeNameByStatus = async (user, member) => {
     if (user.userName === member.displayName) {
       member.setNickname(`👻${user.userName}`).then(console.log("success"));
     }
-  }
-  if (flag == false) {
-    member.setNickname(`${user.userName}`);
+  } else {
+    if (user.userName === member.displayName) return;
+    member.setNickname(`${user.userName}`).then(console.log("success"));
   }
 };
 
