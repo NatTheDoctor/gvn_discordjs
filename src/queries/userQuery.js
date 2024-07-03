@@ -49,6 +49,7 @@ const statsInc = async (id, field, amount) => {
     user.coin = user.maxCoin;
   }
   await user.save();
+  success(`${doc.userName} exp: ${doc.exp}, coin: ${doc.coin}`);
 };
 
 const decreaseDebuffCount = async (id, amount) => {
