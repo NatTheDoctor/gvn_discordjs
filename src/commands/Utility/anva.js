@@ -2,7 +2,12 @@ const { ChatInputCommandInteraction, EmbedBuilder } = require("discord.js");
 const DiscordBot = require("../../client/DiscordBot");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
 const { getAllMessage } = require("../../queries/messageQuery");
-const { fetchUser, statsInc, StatsField } = require("../../queries/userQuery");
+const {
+  fetchUser,
+  statsInc,
+  StatsField,
+  isDebuff,
+} = require("../../queries/userQuery");
 const { anvaProcess } = require("../../functions/anvas/anvaProcess");
 const { success, error } = require("../../utils/Console");
 
@@ -42,6 +47,14 @@ module.exports = new ApplicationCommand({
       if (profile.coin < 36) {
         embed.setDescription(
           `\`#${interaction.channel.name}\`\nKhông đủ tiền để ăn vạ`
+        );
+        return await interaction.reply({ embeds: [embed], ephemeral: true });
+      }
+
+      var status = await isDebuff(id);
+      if (status) {
+        embed.setDescription(
+          `\`#${interaction.channel.name}\`\nDính trạng thái, không ăn vạ được nhé`
         );
         return await interaction.reply({ embeds: [embed], ephemeral: true });
       }
