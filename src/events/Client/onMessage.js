@@ -13,6 +13,7 @@ const {
   fetchAllUsers,
   removeAllUsers,
   isDebuff,
+  StatusField,
 } = require("../../queries/userQuery");
 
 const random = Math.floor(Math.random() * 3);
@@ -49,5 +50,8 @@ module.exports = new Event({
 }).toJSON();
 
 const changeNameByStatus = async (user) => {
-  console.log(user);
+  var status = user.status;
+  if (status[StatusField.DECEASED]) {
+    console.log("True");
+  }
 };
