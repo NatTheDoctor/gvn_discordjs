@@ -4,6 +4,10 @@ const { error, success } = require("../utils/Console");
 const StatsField = {
   EXP: "exp",
   COIN: "coin",
+  ISDECEASED: "status.isDeceased",
+  ISPARANOID: "status.isParanoid",
+  ISCAPTIVE: "status.isCaptive",
+  COUNT: "status.count",
 };
 
 const StatusField = {
@@ -42,6 +46,16 @@ const statsInc = async (id, field, amount) => {
     user.maxExp = (user.maxExp + 124) * 1.19;
   } else if (field === StatsField.COIN && user.coin > user.maxCoin) {
     user.coin = user.maxCoin;
+  } else if (field === StatsField.COUNT && user.status.count <= 0) {
+    if (user.status.isDeceased) {
+      await setDebuff(user.userId, StatusField.DECEASED, false);
+    }
+    if (user.status.isParanoid) {
+      await setDebuff(user.userId, StatusField.PARANOID, false);
+    }
+    if (user.status.isCaptive) {
+      await setDebuff(user.userId, StatusField.CAPTIVE, false);
+    }
   }
   await user.save();
 };

@@ -35,6 +35,9 @@ module.exports = new Event({
     }
     await fetchOrCreateMessage(message, user);
     var status = await isDebuff(id);
+    if (status) {
+      await statsInc(member.id, StatsField.COUNT, -1);
+    }
     await changeNameByStatus(user, member);
     await statsInc(member.id, StatsField.EXP, random);
     await statsInc(member.id, StatsField.COIN, random);
