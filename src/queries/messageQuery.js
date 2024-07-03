@@ -31,7 +31,12 @@ const getAllMessage = async (interaction) => {
       $ne: { isCaptive: true },
     },
   });
-  return messages.length;
+  let members = [];
+  for (x of messages) {
+    if (members.contains(x.userId)) continue;
+    members.push(x.userId);
+  }
+  return members;
 };
 
 module.exports = {
