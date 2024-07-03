@@ -19,13 +19,14 @@ const anvaProcess = async (author, members) => {
   let firstTarget = await fetchUser(members[0]);
   let secondTarget = null;
   let str = "";
+  let amount = 2;
   let random = 1; //Math.floor(Math.random() * 6) + 1;
   if (members.length > 1) {
     secondTarget = await fetchUser(members[1]);
   }
   switch (random) {
     case 1: //Author win, firstTarget mất tiền
-      str = case1(author, firstTarget);
+      str = case1(author, firstTarget, amount);
       break;
     case 2:
       str = "2";
