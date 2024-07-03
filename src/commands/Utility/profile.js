@@ -2,6 +2,7 @@ const { ChatInputCommandInteraction, EmbedBuilder } = require("discord.js");
 const DiscordBot = require("../../client/DiscordBot");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
 const { getAllMessage } = require("../../queries/messageQuery");
+const { processAnva } = require("../../utils/anvas/anvaProcess");
 
 module.exports = new ApplicationCommand({
   command: {
@@ -21,8 +22,7 @@ module.exports = new ApplicationCommand({
   run: async (client, interaction) => {
     let id = interaction.user.id;
     let members = await getAllMessage(interaction);
-    console.log(members);
-    let embed = new EmbedBuilder().setDescription("tét");
+    let embed = new EmbedBuilder().setDescription(processAnva());
 
     await interaction.reply({ embeds: [embed], ephemeral: true });
   },
