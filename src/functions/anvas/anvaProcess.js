@@ -79,8 +79,11 @@ const case1 = async (author, target, amount) => {
   await statsInc(author.userId, StatsField.EXP, amount);
   await statsInc(target.userId, StatsField.EXP, -amount);
 
-  let strBaKien = `\`${nickname}\` -> ${ICON.ICON_BAKIEN} \`${author.userName}\``;
-  await exchangeBaKien(target, author);
+  let strBaKien = "";
+  if (author.isBaKien) {
+    strBaKien = `\`${nickname}\` -> ${ICON.ICON_BAKIEN} \`${author.userName}\``;
+    await exchangeBaKien(target, author);
+  }
 
   return `đánh ngất <@${target.userId}>, loot tiền
   \`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}
@@ -97,8 +100,11 @@ const case2 = async (author, target, amount) => {
 
   await statsInc(author.userId, StatsField.EXP, amount);
   await statsInc(target.userId, StatsField.EXP, -amount);
-  let strBaKien = `\`${nickname}\` -> ${ICON.ICON_BAKIEN} \`${author.userName}\``;
-  await exchangeBaKien(target, author);
+  let strBaKien = "";
+  if (author.isBaKien) {
+    strBaKien = `\`${nickname}\` -> ${ICON.ICON_BAKIEN} \`${author.userName}\``;
+    await exchangeBaKien(target, author);
+  }
   return `đấm <@${target.userId}> bầm dập, loot thì ít mà rớt thì nhiều
   \`${author.userName}\`: **+${amount - lossCoin}** ${ICON.ICON_COIN}
   ${nickname}: **-${amount}** ${ICON.ICON_COIN}
@@ -183,8 +189,11 @@ const case6 = async (author, target) => {
     \`${nickname}\`: ${ICON.EMO_CAPTIVE}`;
     await setDebuff(target.userId, StatusField.CAPTIVE, true);
   }
-  let strBaKien = `\`${author.userName}\` -> ${ICON.ICON_BAKIEN} \`${nickname}\``;
-  await exchangeBaKien(author, target);
+  let strBaKien = "";
+  if (author.isBaKien) {
+    strBaKien = `\n\`${author.userName}\` -> ${ICON.ICON_BAKIEN} \`${nickname}\``;
+    await exchangeBaKien(author, target);
+  }
   return `hoá chaos tiễn <@${target.userId}> ${str}
   ${strBaKien}`;
 };
@@ -204,8 +213,11 @@ const case8 = async (author, target, amount) => {
   await statsInc(author.userId, StatsField.EXP, -amount);
   await statsInc(target.userId, StatsField.EXP, amount - lossCoin);
 
-  let strBaKien = `\`${author.userName}\` -> ${ICON.ICON_BAKIEN} \`${nickname}\``;
-  await exchangeBaKien(author, target);
+  let strBaKien = "";
+  if (author.isBaKien) {
+    strBaKien = `\n\`${author.userName}\` -> ${ICON.ICON_BAKIEN} \`${nickname}\``;
+    await exchangeBaKien(author, target);
+  }
 
   return `<@${target.userId}> đánh ngất \`${
     author.userName
@@ -320,8 +332,11 @@ const case11 = async (author, target, amount) => {
 
     await setDebuff(author.userId, StatusField.DECEASED, true);
   }
-  let strBaKien = `\n\`${author.userName}\` -> ${ICON.ICON_BAKIEN} \`${nickname}\``;
-  await exchangeBaKien(author, target);
+  let strBaKien = "";
+  if (author.isBaKien) {
+    strBaKien = `\n\`${author.userName}\` -> ${ICON.ICON_BAKIEN} \`${nickname}\``;
+    await exchangeBaKien(author, target);
+  }
 
   return `<@${target.userId}> rút dao chém \`${author.userName}\` ${str} ${strBaKien}`;
 };
