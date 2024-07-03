@@ -21,6 +21,7 @@ module.exports = new Event({
   event: "messageCreate",
   once: false,
   run: async (__client__, message) => {
+    if (message.author.bot) return;
     const startTime = performance.now();
     const author = message.author;
     const id = author.id;
