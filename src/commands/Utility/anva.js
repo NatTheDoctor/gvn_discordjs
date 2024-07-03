@@ -30,6 +30,6 @@ module.exports = new ApplicationCommand({
     let result = await anvaProcess(profile, members);
 
     embed.setDescription(result);
-    await interaction.reply({ embeds: [embed] });
+    await interaction.reply({ embeds: [embed], ephemeral: true });
   },
 }).toJSON();
