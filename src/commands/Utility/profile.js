@@ -21,7 +21,7 @@ module.exports = new ApplicationCommand({
     let members = await getAllMessage(interaction);
     if (members.length < 1) {
       embed.setDescription(
-        `\`#${interaction.channel.name}\`\nKhông có ai để ăn vạ`
+        `\`#${interaction.channel.name}\`\nKhông có ai để ăn vạ.`
       );
       return await interaction.reply({ embeds: [embed], ephemeral: true });
     }
