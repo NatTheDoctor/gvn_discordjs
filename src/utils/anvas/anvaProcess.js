@@ -11,7 +11,7 @@ const processAnva = async (author, members) => {
   }
   switch (random) {
     case 1: //Author win, firstTarget mất tiền
-      str = await case1(author, firstTarget);
+      str = case1(author, firstTarget);
       break;
     case 2:
       str = "2";
@@ -36,7 +36,7 @@ const processAnva = async (author, members) => {
   return str;
 };
 
-const case1 = async (author, target, amount) => {
+const case1 = (author, target, amount) => {
   return `<@${target.userId}> ăn đấm, ngất tại chỗ, mất tiền\n\`${author.userName}\`: **+${amount}** ${iconCoin}\n\`${target.userName}\`: **-${amount}** ${iconCoin}`;
 };
 
