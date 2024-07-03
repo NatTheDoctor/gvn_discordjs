@@ -12,7 +12,7 @@ const {
 } = require("../../queries/userQuery");
 const { ICON } = require("../../functions/anvas/anvaProcess");
 
-const random = Math.floor(Math.random() * 3);
+const random = Math.floor(Math.random() * 2) + 1;
 const cooldownMap = new Map();
 
 module.exports = new Event({

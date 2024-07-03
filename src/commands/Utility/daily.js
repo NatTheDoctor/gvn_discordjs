@@ -23,6 +23,13 @@ module.exports = new ApplicationCommand({
         ephemeral: true,
       });
     }
+    if (profile.isDaily) {
+      return await interaction.reply({
+        content: `Nhận daily rồi thì gõ cái gì?`,
+        ephemeral: true,
+      });
+    }
+
     await interaction.reply({ content: `Test Daily`, ephemeral: true });
   },
 }).toJSON();
