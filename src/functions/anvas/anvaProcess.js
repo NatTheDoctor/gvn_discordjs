@@ -99,7 +99,6 @@ const case3 = async (author, target, amount) => {
   }
   return `đánh hoà với <@${target.userId}>,${str}`;
 };
-
 const case4 = async (author, target, amount) => {
   let nickname =
     target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
@@ -125,18 +124,55 @@ const case4 = async (author, target, amount) => {
 const case5 = async (author, target, amount) => {
   let nickname =
     target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
+  let chance = Math.floor(Math.random() * 100);
+  let str = "";
+  if (chance <= 50) {
+    str = `còn nhặt được tiền dưới đất.
+    \`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}
+    \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
 
-  let lossCoin = Math.floor(Math.random() * amount);
-  await statsInc(author.userId, StatsField.COIN, amount - lossCoin);
-  await statsInc(target.userId, StatsField.COIN, -amount);
+    await statsInc(author.userId, StatsField.COIN, amount);
+    await statsInc(target.userId, StatsField.COIN, amount);
 
-  await statsInc(author.userId, StatsField.EXP, amount);
-  await statsInc(target.userId, StatsField.EXP, -amount);
-  return `đang đấm <@${target.userId}> , loot thì ít mà rớt thì nhiều\n\`${
-    author.userName
-  }\`: **+${amount - lossCoin}** ${
-    ICON.ICON_COIN
-  }\n${nickname}: **-${amount}** ${ICON.ICON_COIN}`;
+    await statsInc(author.userId, StatsField.EXP, amount);
+    await statsInc(target.userId, StatsField.EXP, amount);
+  }
+  return `vừa gặp <@${target.userId}> đã yêu, hai bên ôm nhau thắm thiết ra về `;
 };
 
+const case6 = async (author, target, amount) => {
+  let nickname =
+    target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
+  let chance = Math.floor(Math.random() * 100);
+  if (chance <= 33) {
+    str = "vào hòm";
+    await setDebuff(target.userId, StatusField.DECEASED, true);
+  } else if (chance <= 67) {
+    str = "vào trại thương điên";
+    await setDebuff(target.userId, StatusField.PARANOID, true);
+  } else {
+    str = "vào tù";
+    await setDebuff(target.userId, StatusField.CAPTIVE, true);
+  }
+  return `hoá chaos tiễn <@${target.userId}> ${str}`;
+};
+
+const case7 = async (author, target, amount) => {
+  let nickname =
+    target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
+  let chance = Math.floor(Math.random() * 100);
+  let str = "";
+  if (chance <= 50) {
+    str = `còn nhặt được tiền dưới đất.
+    \`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}
+    \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
+
+    await statsInc(author.userId, StatsField.COIN, amount);
+    await statsInc(target.userId, StatsField.COIN, amount);
+
+    await statsInc(author.userId, StatsField.EXP, amount);
+    await statsInc(target.userId, StatsField.EXP, amount);
+  }
+  return `vừa gặp <@${target.userId}> đã yêu, hai bên ôm nhau thắm thiết ra về `;
+};
 module.exports = { anvaProcess, ICON, ROLE };
