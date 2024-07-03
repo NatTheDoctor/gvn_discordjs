@@ -26,7 +26,7 @@ const anvaProcess = async (author, members) => {
   let firstTarget = await fetchUser(members[0]);
   let secondTarget = null;
   let str = "";
-  let amount = 2;
+  let amount = Math.floor(Math.random() * 18);
   let random = Math.floor(Math.random() * 11) + 1;
   if (members.length > 1) {
     secondTarget = await fetchUser(members[1]);
@@ -94,7 +94,7 @@ const case2 = async (author, target, amount) => {
   let nickname =
     target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
 
-  let lossCoin = Math.floor(Math.random() * amount);
+  let lossCoin = Math.floor(Math.random() * amount) + 1;
   await statsInc(author.userId, StatsField.COIN, amount - lossCoin);
   await statsInc(target.userId, StatsField.COIN, -amount);
 
