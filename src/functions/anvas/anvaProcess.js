@@ -1,5 +1,3 @@
-const { iconCoin } = require("../constants");
-
 const anvaProcess = async () => {};
 
 // const case1 = (author, target, amount) => {
