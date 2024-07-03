@@ -27,12 +27,11 @@ module.exports = new Event({
     const guild = message.guild;
     const member = await guild.members.fetch(id);
 
-    await fetchOrCreateMessage(message);
-
     const user = await fetchUser(id);
     if (user === null) {
       return await fetchOrCreateUser(member);
     }
+    await fetchOrCreateMessage(message, user);
     var status = await isDebuff(id);
     const sentDate = moment
       .unix(message.createdTimestamp / 1000)
