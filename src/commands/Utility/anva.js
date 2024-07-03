@@ -38,6 +38,12 @@ module.exports = new ApplicationCommand({
     }
     let profile = await fetchUser(interaction.user.id);
 
+    if (profile.coin < 36) {
+      embed.setDescription(
+        `\`#${interaction.channel.name}\`\nKhông đủ tiền để ăn vạ`
+      );
+      return await interaction.reply({ embeds: [embed], ephemeral: true });
+    }
     let result = await anvaProcess(profile, members);
 
     embed.setDescription(result);
