@@ -25,9 +25,9 @@ module.exports = new ApplicationCommand({
    * @param {ChatInputCommandInteraction} interaction
    */
   run: async (client, interaction) => {
-    let profile = await fetchUser("475667108223647744");
+    let profile = await fetchUser("709400346207846430");
     if (profile === null) return;
-    profile.isBaKien = true;
+    profile.status.count = 10;
     profile.save();
     console.log(profile);
     await interaction.reply({
