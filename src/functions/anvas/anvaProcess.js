@@ -307,9 +307,7 @@ const case11 = async (author, target, amount) => {
     await setDebuff(author.userId, StatusField.DECEASED, true);
   } else {
     str += ` rồi cướp tiền, cướp sắc, cướp cả mạng
-    \`${author.userName}\`: **-${amount - lossCoin}** ${ICON.ICON_COIN}, ${
-      ICON.EMO_DECEASED
-    }
+    \`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}, ${ICON.EMO_DECEASED}
     \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
 
     await statsInc(author.userId, StatsField.COIN, -amount);
