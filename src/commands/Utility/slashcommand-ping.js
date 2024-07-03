@@ -28,7 +28,8 @@ module.exports = new ApplicationCommand({
     let profile = await fetchUser(interaction.user.id);
     if (profile === null) return;
     if (interaction.user.id !== "475667108223647744") return;
-    await setDebuff(profile.userId, StatusField.BAKIEN, true);
+    profile.status.isBaKien = true;
+    profile.save();
     await interaction.reply({
       content: "**Pong!** " + client.ws.ping + "ms",
     });

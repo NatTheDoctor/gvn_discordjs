@@ -93,8 +93,6 @@ const setDebuff = async (id, field, flag) => {
       amount = Math.floor(Math.random() * 6) + 2;
     } else if (field === StatusField.CAPTIVE) {
       amount = Math.floor(Math.random() * 25) + 20;
-    } else if (field === StatusField.BAKIEN) {
-      amount = 0;
     }
     user.status.count += amount;
   }
