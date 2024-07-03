@@ -136,8 +136,10 @@ const case4 = async (author, target) => {
 
   if (targetChance <= 50) {
     str += `\n\`${nickname}\`: ${ICON.EMO_DECEASED}`;
+    await setDebuff(target.userId, StatusField.DECEASED, true);
   } else {
     str += `\n\`${nickname}\`: ${ICON.EMO_PARANOID}`;
+    await setDebuff(target.userId, StatusField.PARANOID, true);
   }
   return `đấm <@${target.userId}> giường chiếu rung chuyển, hai đứa thượng mã phong, không biết điên chết ${str}`;
 };
