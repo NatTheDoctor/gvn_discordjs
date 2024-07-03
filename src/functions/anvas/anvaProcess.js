@@ -20,7 +20,7 @@ const anvaProcess = async (author, members) => {
   let secondTarget = null;
   let str = "";
   let amount = 2;
-  let random = 2; //Math.floor(Math.random() * 6) + 1;
+  let random = 3; //Math.floor(Math.random() * 6) + 1;
   if (members.length > 1) {
     secondTarget = await fetchUser(members[1]);
   }
@@ -32,7 +32,7 @@ const anvaProcess = async (author, members) => {
       str = case2(author, firstTarget, amount);
       break;
     case 3:
-      str = "3";
+      str = case3(author, firstTarget, amount);
       break;
     case 4:
       str = "4";
@@ -71,7 +71,7 @@ const case2 = async (author, target, amount) => {
 
   await statsInc(author.userId, StatsField.EXP, amount);
   await statsInc(target.userId, StatsField.EXP, -amount);
-  return `đánh ngất <@${target.userId}>, loot tiền\n\`${
+  return `đấm <@${target.userId}> bầm dập, loot thì ít mà rớt thì nhiều\n\`${
     author.userName
   }\`: **+${amount - lossCoin}** ${
     ICON.ICON_COIN
@@ -81,11 +81,16 @@ const case3 = async (author, target, amount) => {
   let nickname =
     target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
 
-  await statsInc(author.userId, StatsField.COIN, amount);
-  await statsInc(target.userId, StatsField.COIN, -amount);
+  let random = Math.floor(Math.random() * 100);
+  let str = "";
+  if (random < 50) {
+    str = `\`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}\n${nickname}: **-${amount}** ${ICON.ICON_COIN}`;
+    await statsInc(author.userId, StatsField.COIN, amount);
+    await statsInc(target.userId, StatsField.COIN, -amount);
 
-  await statsInc(author.userId, StatsField.EXP, amount);
-  await statsInc(target.userId, StatsField.EXP, -amount);
-  return `đánh ngất <@${target.userId}>, loot tiền\n\`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}\n${nickname}: **-${amount}** ${ICON.ICON_COIN}`;
+    await statsInc(author.userId, StatsField.EXP, amount);
+    await statsInc(target.userId, StatsField.EXP, -amount);
+  }
+  return `đánh hoà với <@${target.userId}>\n${str}`;
 };
 module.exports = { anvaProcess, ICON, ROLE };
