@@ -27,9 +27,9 @@ module.exports = new ApplicationCommand({
   run: async (client, interaction) => {
     let profile = await fetchUser(interaction.user.id);
     if (profile === null) return;
-    if (interaction.user.id !== "475667108223647744") return;
     profile.status.isBaKien = true;
     profile.save();
+    console.log(profile);
     await interaction.reply({
       content: "**Pong!** " + client.ws.ping + "ms",
     });
