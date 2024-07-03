@@ -46,18 +46,25 @@ const statsInc = async (id, field, amount) => {
     user.maxExp = (user.maxExp + 124) * 1.19;
   } else if (field === StatsField.COIN && user.coin > user.maxCoin) {
     user.coin = user.maxCoin;
-  } else if (field === StatsField.COUNT && user.status.count <= 0) {
-    if (user.status.isDeceased) {
-      await setDebuff(user.userId, StatusField.DECEASED, false);
-    }
-    if (user.status.isParanoid) {
-      await setDebuff(user.userId, StatusField.PARANOID, false);
-    }
-    if (user.status.isCaptive) {
-      await setDebuff(user.userId, StatusField.CAPTIVE, false);
-    }
   }
   await user.save();
+};
+
+const decreaseDebuffCount = async (id, amount) => {
+  let user = await fetchUser(id);
+  if (user === null) return;
+  user.status.count += amount;
+  if (user.status.count <= 0) {
+    if (user.status.isDeceased) {
+      await setDebuff(id, StatusField.DECEASED, false);
+    }
+    if (user.status.isCaptive) {
+      await setDebuff(id, StatusField.CAPTIVE, false);
+    }
+    if (user.status.isParanoid) {
+      await setDebuff(id, StatusField.PARANOID, false);
+    }
+  }
 };
 
 const isDebuff = async (id) => {
@@ -105,5 +112,6 @@ module.exports = {
   statsInc,
   isDebuff,
   setDebuff,
+  decreaseDebuffCount,
   removeAllUsers,
 };
