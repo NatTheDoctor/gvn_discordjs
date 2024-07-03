@@ -22,7 +22,9 @@ module.exports = new ApplicationCommand({
   run: async (client, interaction) => {
     let id = interaction.user.id;
     let members = await getAllMessage(interaction);
-    let embed = new EmbedBuilder().setDescription(processAnva());
+
+    let result = await processAnva();
+    let embed = new EmbedBuilder().setDescription(result);
 
     await interaction.reply({ embeds: [embed], ephemeral: true });
   },
