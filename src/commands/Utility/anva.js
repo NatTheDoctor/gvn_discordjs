@@ -43,7 +43,6 @@ module.exports = new ApplicationCommand({
         return await interaction.reply({ embeds: [embed], ephemeral: true });
       }
       let profile = await fetchUser(interaction.user.id);
-
       if (profile.coin < 36) {
         embed.setDescription(
           `\`#${interaction.channel.name}\`\nKhông đủ tiền để ăn vạ`
@@ -51,10 +50,12 @@ module.exports = new ApplicationCommand({
         return await interaction.reply({ embeds: [embed], ephemeral: true });
       }
 
-      var status = await isDebuff(id);
+      const status = await isDebuff(id);
       if (status) {
         embed.setDescription(
-          `\`#${interaction.channel.name}\`\nDính trạng thái, không ăn vạ được nhé`
+          `\`
+          #${interaction.channel.name}\`
+          Dính trạng thái, không ăn vạ được nhé`
         );
         return await interaction.reply({ embeds: [embed], ephemeral: true });
       }
