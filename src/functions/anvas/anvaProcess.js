@@ -20,7 +20,7 @@ const anvaProcess = async (author, members) => {
   let secondTarget = null;
   let str = "";
   let amount = 2;
-  let random = 1; //Math.floor(Math.random() * 6) + 1;
+  let random = 2; //Math.floor(Math.random() * 6) + 1;
   if (members.length > 1) {
     secondTarget = await fetchUser(members[1]);
   }
@@ -29,7 +29,7 @@ const anvaProcess = async (author, members) => {
       str = case1(author, firstTarget, amount);
       break;
     case 2:
-      str = "2";
+      str = case2(author, firstTarget, amount);
       break;
     case 3:
       str = "3";
@@ -54,9 +54,38 @@ const case1 = async (author, target, amount) => {
   let nickname =
     target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
 
-  await statsInc(author.userId, StatsField.COIN, -amount);
+  await statsInc(author.userId, StatsField.COIN, amount);
   await statsInc(target.userId, StatsField.COIN, -amount);
-  return `<@${target.userId}> ăn đấm, ngất tại chỗ, mất tiền\n\`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}\n${nickname}: **-${amount}** ${ICON.ICON_COIN}`;
-};
 
+  await statsInc(author.userId, StatsField.EXP, amount);
+  await statsInc(target.userId, StatsField.EXP, -amount);
+  return `đánh ngất <@${target.userId}>, loot tiền\n\`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}\n${nickname}: **-${amount}** ${ICON.ICON_COIN}`;
+};
+const case2 = async (author, target, amount) => {
+  let nickname =
+    target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
+
+  let lossCoin = Math.floor(Math.random() * amount);
+  await statsInc(author.userId, StatsField.COIN, amount - lossCoin);
+  await statsInc(target.userId, StatsField.COIN, -amount);
+
+  await statsInc(author.userId, StatsField.EXP, amount);
+  await statsInc(target.userId, StatsField.EXP, -amount);
+  return `đánh ngất <@${target.userId}>, loot tiền\n\`${
+    author.userName
+  }\`: **+${amount - lossCoin}** ${
+    ICON.ICON_COIN
+  }\n${nickname}: **-${amount}** ${ICON.ICON_COIN}`;
+};
+const case3 = async (author, target, amount) => {
+  let nickname =
+    target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
+
+  await statsInc(author.userId, StatsField.COIN, amount);
+  await statsInc(target.userId, StatsField.COIN, -amount);
+
+  await statsInc(author.userId, StatsField.EXP, amount);
+  await statsInc(target.userId, StatsField.EXP, -amount);
+  return `đánh ngất <@${target.userId}>, loot tiền\n\`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}\n${nickname}: **-${amount}** ${ICON.ICON_COIN}`;
+};
 module.exports = { anvaProcess, ICON, ROLE };
