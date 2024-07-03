@@ -54,10 +54,8 @@ const case1 = async (author, target, amount) => {
   let nickname =
     target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
 
-  console.log(target);
-  await statsInc(author.id, StatsField.COIN, -amount);
-  await statsInc(target.id, StatsField.COIN, -amount);
-  console.log(target);
+  await statsInc(author.userId, StatsField.COIN, -amount);
+  await statsInc(target.userId, StatsField.COIN, -amount);
   return `<@${target.userId}> ăn đấm, ngất tại chỗ, mất tiền\n\`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}\n${nickname}: **-${amount}** ${ICON.ICON_COIN}`;
 };
 
