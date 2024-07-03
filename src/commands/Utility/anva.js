@@ -7,8 +7,8 @@ const { anvaProcess } = require("../../functions/anvas/anvaProcess");
 
 module.exports = new ApplicationCommand({
   command: {
-    name: "profile",
-    description: "Mở profile",
+    name: "anva",
+    description: "ăn vạ",
     type: 1,
     options: [],
   },
@@ -18,13 +18,17 @@ module.exports = new ApplicationCommand({
   run: async (client, interaction) => {
     let embed = new EmbedBuilder();
     let id = interaction.user.id;
+    let members = await getAllMessage(interaction);
+    if (members.length < 1) {
+      embed.setDescription(
+        `\`#${interaction.channel.name}\`\nKhông có ai để ăn vạ.`
+      );
+      return await interaction.reply({ embeds: [embed], ephemeral: true });
+    }
     let profile = await fetchUser(interaction.user.id);
-    if (profile === null) return;
 
-    embed.setDescription(`
-      <:notcoin:988449419621990470>: ${profile.coin}
-      🧪: ${((profile.exp / profile.maxExp) * 100).toFixed(2)}%
-      `);
+    let result = await anvaProcess(profile, members);
+
     await interaction.reply({ content: result });
   },
 }).toJSON();
