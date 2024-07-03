@@ -33,7 +33,7 @@ const getAllMessage = async (interaction) => {
   });
   let members = [];
   for (x of messages) {
-    if (members.contains(x.userId)) continue;
+    if (members.includes(x.userId)) continue;
     members.push(x.userId);
   }
   return members;
