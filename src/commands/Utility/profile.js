@@ -25,6 +25,6 @@ module.exports = new ApplicationCommand({
       <:notcoin:988449419621990470>: ${profile.coin}
       🧪: ${((profile.exp / profile.maxExp) * 100).toFixed(2)}%
       `);
-    await interaction.reply({ content: result });
+    await interaction.reply({ embeds: [embed] });
   },
 }).toJSON();
