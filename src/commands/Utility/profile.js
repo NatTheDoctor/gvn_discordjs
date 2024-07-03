@@ -3,6 +3,7 @@ const DiscordBot = require("../../client/DiscordBot");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
 const { getAllMessage } = require("../../queries/messageQuery");
 const { processAnva } = require("../../utils/anvas/anvaProcess");
+const { fetchUser } = require("../../queries/userQuery");
 
 module.exports = new ApplicationCommand({
   command: {
@@ -14,24 +15,21 @@ module.exports = new ApplicationCommand({
   options: {
     cooldown: 5000,
   },
-  /**
-   *
-   * @param {DiscordBot} client
-   * @param {ChatInputCommandInteraction} interaction
-   */
   run: async (client, interaction) => {
     let embed = new EmbedBuilder();
     let id = interaction.user.id;
     let members = await getAllMessage(interaction);
     if (members.length < 1) {
       embed.setDescription(
-        `#${interaction.channel.name}\nKhông có ai để ăn vạ`
+        `\`#${interaction.channel.name}\`\nKhông có ai để ăn vạ`
       );
       return await interaction.reply({ embeds: [embed], ephemeral: true });
     }
+    let profile = await fetchUser(interaction.user.id);
 
-    let result = await processAnva(members);
+    let result = await processAnva(profile, members);
 
+    embed.setDescription(result);
     await interaction.reply({ embeds: [embed], ephemeral: true });
   },
 }).toJSON();

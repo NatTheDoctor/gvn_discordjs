@@ -1,9 +1,19 @@
-const processAnva = async (members) => {
+const { fetchUser } = require("../../queries/userQuery");
+const { case1 } = require("./case1");
+
+const processAnva = async (author, members) => {
+  let firstTarget = await fetchUser(members[0]);
+  let secondTarget = null;
   let str = "";
   let random = Math.floor(Math.random() * 6) + 1;
+  if (members.length > 1) {
+    secondTarget = await fetchUser(members[1]);
+  }
+  console.log(firstTarget);
+  console.log(secondTarget);
   switch (random) {
     case 1:
-      str = "1";
+      str = await case1();
       break;
     case 2:
       str = "2";
