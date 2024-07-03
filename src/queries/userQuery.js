@@ -65,6 +65,10 @@ const decreaseDebuffCount = async (id, amount) => {
       await setDebuff(id, StatusField.PARANOID, false);
     }
   }
+
+  await user.save().then((doc) => {
+    success(`Decreased ${doc.userName} debuff's count: ${doc.status.count} `);
+  });
 };
 
 const isDebuff = async (id) => {
