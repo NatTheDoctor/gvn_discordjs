@@ -17,6 +17,7 @@ const fetchOrCreateMessage = async (m, user) => {
     },
   });
   await query.save();
+  console.log(query);
   return query;
 };
 
