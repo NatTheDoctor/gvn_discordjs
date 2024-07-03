@@ -18,6 +18,7 @@ module.exports = new ApplicationCommand({
   run: async (client, interaction) => {
     let embed = new EmbedBuilder();
     let id = interaction.user.id;
+    if (id !== "769368349414785055") return;
     let members = await getAllMessage(interaction);
     if (members.length < 1) {
       embed.setDescription(
