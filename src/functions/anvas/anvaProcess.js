@@ -47,7 +47,6 @@ const anvaProcess = async (author, members) => {
       str = "7";
       break;
   }
-  console.log(str);
   return str;
 };
 

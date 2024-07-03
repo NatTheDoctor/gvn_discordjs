@@ -27,7 +27,7 @@ module.exports = new ApplicationCommand({
     }
     let profile = await fetchUser(interaction.user.id);
 
-    let result = anvaProcess(profile, members);
+    let result = await anvaProcess(profile, members);
 
     await interaction.reply({ content: result, ephemeral: true });
   },
