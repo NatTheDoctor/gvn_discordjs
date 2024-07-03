@@ -3,7 +3,7 @@ const DiscordBot = require("../../client/DiscordBot");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
 const { getAllMessage } = require("../../queries/messageQuery");
 const { fetchUser } = require("../../queries/userQuery");
-//const { anvaProcess } = require("../../functions/anvas/anvaProcess");
+const { anvaProcess } = require("../../functions/anvas/anvaProcess");
 
 module.exports = new ApplicationCommand({
   command: {
