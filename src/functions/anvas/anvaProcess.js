@@ -1,4 +1,4 @@
-const { fetchUser } = require("../../queries/userQuery");
+const { fetchUser, statsInc, StatsField } = require("../../queries/userQuery");
 
 const ICON = {
   ICON_BAKIEN: "\uD83D\uDC51",
@@ -50,9 +50,12 @@ const anvaProcess = async (author, members) => {
   return str;
 };
 
-const case1 = (author, target, amount) => {
+const case1 = async (author, target, amount) => {
   let nickname =
     target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
+
+  await statsInc(author.id, StatsField.COIN, -amount);
+  await statsInc(target.id, StatsField.COIN, -amount);
   return `<@${target.userId}> ăn đấm, ngất tại chỗ, mất tiền\n\`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}\n${nickname}: **-${amount}** ${ICON.ICON_COIN}`;
 };
 
