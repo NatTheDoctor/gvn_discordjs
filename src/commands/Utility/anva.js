@@ -46,8 +46,7 @@ module.exports = new ApplicationCommand({
     }
     let result = await anvaProcess(profile, members);
 
-    embed.setDescription(result);
-    await interaction.reply({ embeds: [embed] });
+    await interaction.reply({ content: result });
 
     await statsInc(id, StatsField.COIN, -36);
     cooldownMap.set(interaction.channelId, now); // update last execution time
