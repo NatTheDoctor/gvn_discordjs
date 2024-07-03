@@ -39,7 +39,7 @@ module.exports = new Event({
     const endTime = performance.now();
     const executionTime = (endTime - startTime).toFixed(1);
     success(
-      `[${message.channel.name} ${user.userName} (${status}): coin ${user.coin}, exp ${user.exp} ${executionTime} ms`
+      `${message.channel.name} ${user.userName} (${status}): coin ${user.coin}, exp ${user.exp} ${executionTime} ms`
     );
   },
 }).toJSON();
