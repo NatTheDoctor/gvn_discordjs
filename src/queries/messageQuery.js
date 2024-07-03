@@ -38,6 +38,7 @@ const getAllMessage = async (interaction) => {
   let members = [];
   for (x of messages) {
     if (members.includes(x.userId)) continue;
+    success(x.userId);
     members.push(x.userId);
   }
   members = shuffleArray(members);
