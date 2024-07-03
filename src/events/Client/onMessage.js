@@ -62,6 +62,7 @@ const changeNameByStatus = async (user, member) => {
       member.setNickname(`${user.userName}`).then(console.log("success"));
     }
   }
+  console.log(flag);
   if (!flag) {
     console.log("a");
   }
