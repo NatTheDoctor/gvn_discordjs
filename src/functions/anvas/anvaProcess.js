@@ -27,7 +27,7 @@ const anvaProcess = async (author, members) => {
   let secondTarget = null;
   let str = "";
   let amount = 2;
-  let random = 6; //Math.floor(Math.random() * 6) + 1;
+  let random = Math.floor(Math.random() * 11) + 1;
   if (members.length > 1) {
     secondTarget = await fetchUser(members[1]);
   }
