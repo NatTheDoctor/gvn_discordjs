@@ -5,10 +5,12 @@ const { fetchUser } = require("../../queries/userQuery");
 module.exports = new Event({
   event: "guildMemberUpdate",
   once: false,
-  run: async (__client__, message) => {
+  run: async (__client__, message, oldMember, newMember) => {
     const { author, id, guild, member } = await getMember(message);
     let profile = await fetchUser(id);
     if (profile === null) return;
     success(profile);
+    success(oldMember.nickname);
+    success(newMember.nickname);
   },
 }).toJSON();
