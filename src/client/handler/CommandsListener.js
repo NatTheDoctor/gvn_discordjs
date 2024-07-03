@@ -123,7 +123,7 @@ class CommandsListener {
         const endTime = performance.now();
         const executionTime = (endTime - startTime).toFixed(1);
         success(
-          `${interaction.channel.name} ${interaction.user.name} ${executionTime} ms`
+          `${interaction.channel.name} ${interaction.author.name} ${executionTime} ms`
         );
       } catch (err) {
         error(err);
