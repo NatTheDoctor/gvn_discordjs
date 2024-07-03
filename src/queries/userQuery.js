@@ -55,8 +55,7 @@ const statsInc = async (user, field, amount) => {
   await user.save();
 };
 
-const decreaseDebuffCount = async (id, amount) => {
-  let user = await fetchUser(id);
+const decreaseDebuffCount = async (user, amount) => {
   if (user === null) return;
   user.status.count += amount;
   if (user.status.count <= 0) {
@@ -76,8 +75,7 @@ const decreaseDebuffCount = async (id, amount) => {
   });
 };
 
-const isDebuff = async (id) => {
-  let user = await fetchUser(id);
+const isDebuff = async (user) => {
   if (user === null) return;
   let status = user.status;
 

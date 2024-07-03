@@ -30,10 +30,10 @@ module.exports = new Event({
       return await fetchOrCreateUser(member);
     }
     await fetchOrCreateMessage(message, user);
-    var status = await isDebuff(id);
+    var status = await isDebuff(user);
     if (status) {
       if (user.status.isCaptive) {
-        await decreaseDebuffCount(id, -1);
+        await decreaseDebuffCount(user, -1);
       } else {
         const now = Date.now();
         const cooldownTime = 60 * 1000; // 1 minute
@@ -41,7 +41,7 @@ module.exports = new Event({
         if (lastExecutionTime && now - lastExecutionTime < cooldownTime) {
           return; // cooldown not expired, skip execution
         }
-        await decreaseDebuffCount(id, -1);
+        await decreaseDebuffCount(user, -1);
         cooldownMap.set(id, now); // update last execution time
       }
     }
