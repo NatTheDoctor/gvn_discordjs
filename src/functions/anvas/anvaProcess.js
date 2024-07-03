@@ -1,5 +1,5 @@
 const { fetchUser } = require("../../queries/userQuery");
-const { iconCoin } = require("../constants");
+const { iconCoin } = require("../../utils/constants");
 
 const anvaProcess = async () => {
   //   let firstTarget = await fetchUser(members[0]);
