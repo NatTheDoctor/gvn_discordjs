@@ -3,7 +3,6 @@ const DiscordBot = require("../../client/DiscordBot");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
 const { getAllMessage } = require("../../queries/messageQuery");
 const { fetchUser } = require("../../queries/userQuery");
-const { anvaProcess } = require("../../utils/anvas/anvaProcess");
 
 module.exports = new ApplicationCommand({
   command: {
@@ -27,9 +26,9 @@ module.exports = new ApplicationCommand({
     }
     let profile = await fetchUser(interaction.user.id);
 
-    let result = await anvaProcess();
+    //let result = await anvaProcess();
 
-    embed.setDescription(result);
+    //embed.setDescription(result);
     await interaction.reply({ embeds: [embed], ephemeral: true });
   },
 }).toJSON();
