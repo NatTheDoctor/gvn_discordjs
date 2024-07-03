@@ -305,7 +305,7 @@ const case11 = async (author, target, amount) => {
   let chance = Math.floor(Math.random() * 100);
   if (chance < 33) {
     str += ` rồi cướp tiền
-    \`${author.userName}\`: **-${amount - lossCoin}** ${ICON.ICON_COIN}
+    \`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}
     \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
 
     await statsInc(author.userId, StatsField.COIN, -amount);
