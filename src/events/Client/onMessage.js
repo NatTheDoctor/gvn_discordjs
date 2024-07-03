@@ -36,7 +36,7 @@ module.exports = new Event({
     await fetchOrCreateMessage(message, user);
     var status = await isDebuff(id);
     if (status) {
-      changeNameByStatus(user);
+      changeNameByStatus(user, member);
     }
     await statsInc(member.id, StatsField.EXP, random);
     await statsInc(member.id, StatsField.COIN, random);
@@ -49,9 +49,11 @@ module.exports = new Event({
   },
 }).toJSON();
 
-const changeNameByStatus = async (user) => {
+const changeNameByStatus = async (user, member) => {
   var status = user.status;
   if (status[StatusField.DECEASED]) {
-    console.log("True");
+    if (user.userName === member.displayName) {
+      console.log("TRUE");
+    }
   }
 };
