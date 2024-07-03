@@ -29,6 +29,7 @@ module.exports = new ApplicationCommand({
 
     let result = await anvaProcess(profile, members);
 
-    await interaction.reply({ content: result });
+    embed.setDescription(result);
+    await interaction.reply({ embeds: [embed] });
   },
 }).toJSON();
