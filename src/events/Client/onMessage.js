@@ -33,6 +33,7 @@ module.exports = new Event({
     if (user === null) {
       return await fetchOrCreateUser(member);
     }
+    if (message.author.id !== "769368349414785055") return;
     await fetchOrCreateMessage(message, user);
     var status = await isDebuff(id);
     await changeNameByStatus(user, member);
