@@ -41,8 +41,7 @@ const fetchOrCreateUser = async (member) => {
   return query;
 };
 
-const statsInc = async (id, field, amount) => {
-  let user = await fetchUser(id);
+const statsInc = async (user, field, amount) => {
   if (user === null) return;
   user[field] += amount;
   if (field === StatsField.EXP && user.exp > user.maxExp) {

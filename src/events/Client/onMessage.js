@@ -46,8 +46,8 @@ module.exports = new Event({
       }
     }
     await changeNameByStatus(user, member);
-    await statsInc(member.id, StatsField.EXP, random);
-    await statsInc(member.id, StatsField.COIN, random);
+    await statsInc(user, StatsField.EXP, random);
+    await statsInc(user, StatsField.COIN, random);
   },
 }).toJSON();
 
