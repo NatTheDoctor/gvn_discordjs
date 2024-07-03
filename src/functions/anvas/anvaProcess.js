@@ -26,7 +26,7 @@ const anvaProcess = async (author, members) => {
   let secondTarget = null;
   let str = "";
   let amount = 2;
-  let random = 4; //Math.floor(Math.random() * 6) + 1;
+  let random = 6; //Math.floor(Math.random() * 6) + 1;
   if (members.length > 1) {
     secondTarget = await fetchUser(members[1]);
   }
@@ -144,6 +144,7 @@ const case6 = async (author, target, amount) => {
   let nickname =
     target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
   let chance = Math.floor(Math.random() * 100);
+  chance = 99;
   if (chance <= 33) {
     str = "vào hòm";
     await setDebuff(target.userId, StatusField.DECEASED, true);
