@@ -18,15 +18,7 @@ const StatusField = {
 };
 
 const fetchUser = async (userId) => {
-  const startTime = performance.now();
-
-  const user = await UserSchema.findOne({ userId: userId });
-  if (user === null) return;
-
-  const endTime = performance.now();
-  const executionTime = (endTime - startTime).toFixed(1);
-  success(`FetchUser: ${user.userName} ${executionTime} ms`);
-  return user;
+  return await UserSchema.findOne({ userId: userId });
 };
 
 const fetchAllUsers = async (userId) => {
@@ -34,8 +26,6 @@ const fetchAllUsers = async (userId) => {
 };
 
 const fetchOrCreateUser = async (member) => {
-  const startTime = performance.now();
-
   const user = await fetchUser(member.id);
   if (user) return user;
   const query = new UserSchema({
@@ -43,15 +33,11 @@ const fetchOrCreateUser = async (member) => {
     userName: member.displayName || member.user.username,
   });
   await query.save();
-
-  const endTime = performance.now();
-  const executionTime = (endTime - startTime).toFixed(1);
-  success(`CreateUser: ${user.userName} ${executionTime} ms`);
   return query;
 };
 
-const statsInc = async (user, field, amount) => {
-  const startTime = performance.now();
+const statsInc = async (id, field, amount) => {
+  let user = await fetchUser(id);
   if (user === null) return;
   user[field] += amount;
   if (field === StatsField.EXP && user.exp > user.maxExp) {
@@ -63,13 +49,10 @@ const statsInc = async (user, field, amount) => {
     user.coin = user.maxCoin;
   }
   await user.save();
-
-  const endTime = performance.now();
-  const executionTime = (endTime - startTime).toFixed(1);
-  success(`CreateUser: ${user.userName} ${executionTime} ms`);
 };
 
-const decreaseDebuffCount = async (user, amount) => {
+const decreaseDebuffCount = async (id, amount) => {
+  let user = await fetchUser(id);
   if (user === null) return;
   user.status.count += amount;
   if (user.status.count <= 0) {
@@ -89,7 +72,8 @@ const decreaseDebuffCount = async (user, amount) => {
   });
 };
 
-const isDebuff = async (user) => {
+const isDebuff = async (id) => {
+  let user = await fetchUser(id);
   if (user === null) return;
   let status = user.status;
 

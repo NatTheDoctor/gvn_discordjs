@@ -20,6 +20,7 @@ module.exports = new Event({
   once: false,
   run: async (__client__, message) => {
     if (message.author.bot) return;
+    const startTime = performance.now();
     const author = message.author;
     const id = author.id;
     const guild = message.guild;
@@ -30,10 +31,10 @@ module.exports = new Event({
       return await fetchOrCreateUser(member);
     }
     await fetchOrCreateMessage(message, user);
-    var status = await isDebuff(user);
+    var status = await isDebuff(id);
     if (status) {
       if (user.status.isCaptive) {
-        await decreaseDebuffCount(user, -1);
+        await decreaseDebuffCount(id, -1);
       } else {
         const now = Date.now();
         const cooldownTime = 60 * 1000; // 1 minute
@@ -41,13 +42,19 @@ module.exports = new Event({
         if (lastExecutionTime && now - lastExecutionTime < cooldownTime) {
           return; // cooldown not expired, skip execution
         }
-        await decreaseDebuffCount(user, -1);
+        await decreaseDebuffCount(id, -1);
         cooldownMap.set(id, now); // update last execution time
       }
     }
     await changeNameByStatus(user, member);
-    await statsInc(user, StatsField.EXP, random);
-    await statsInc(user, StatsField.COIN, random);
+    await statsInc(member.id, StatsField.EXP, random);
+    await statsInc(member.id, StatsField.COIN, random);
+
+    const endTime = performance.now();
+    const executionTime = (endTime - startTime).toFixed(1);
+    success(
+      `${message.channel.name} ${user.userName} (${status}): coin ${user.coin}, exp ${user.exp} ${executionTime} ms`
+    );
   },
 }).toJSON();
 
