@@ -1,5 +1,6 @@
 const MessageSchema = require("../schema/message");
 const { success } = require("../utils/Console");
+const { fetchUser, isDebuff } = require("./userQuery");
 
 const fetchOrCreateMessage = async (m, user) => {
   const message = await MessageSchema.findOne({ messageId: m.id }).lean();
@@ -26,15 +27,18 @@ const getAllMessage = async (interaction) => {
     userId: { $ne: interaction.user.id },
     channelId: interaction.channelId,
     timestamp: { $gte: threeMinutesAgo },
-    status: {
-      $ne: { isDeceased: true },
-      $ne: { isParanoid: true },
-      $ne: { isCaptive: true },
-    },
+    $and: [
+      { "status.isDeceased": { $ne: true } },
+
+      { "status.isParanoid": { $ne: true } },
+
+      { "status.isCaptive": { $ne: true } },
+    ],
   });
   let members = [];
   for (x of messages) {
     if (members.includes(x.userId)) continue;
+    if (isDebuff(x.userId)) continue;
     members.push(x.userId);
   }
   members = shuffleArray(members);
