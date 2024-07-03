@@ -4,6 +4,7 @@ const ApplicationCommand = require("../../structure/ApplicationCommand");
 const { getAllMessage } = require("../../queries/messageQuery");
 const { fetchUser, statsInc, StatsField } = require("../../queries/userQuery");
 const { anvaProcess } = require("../../functions/anvas/anvaProcess");
+const { success } = require("../../utils/Console");
 
 const cooldownMap = new Map();
 
@@ -29,6 +30,7 @@ module.exports = new ApplicationCommand({
     }
 
     let members = await getAllMessage(interaction);
+    success(members.length);
     if (members.length < 1) {
       embed.setDescription(
         `\`#${interaction.channel.name}\`\nKhông có ai để ăn vạ.`
