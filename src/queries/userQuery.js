@@ -20,7 +20,7 @@ const StatusField = {
 const fetchUser = async (userId) => {
   console.time("fetchUser");
   const user = await UserSchema.findOne({ userId: userId });
-  console.timeEnd("fetchUser");
+  console.timeEnd("fetchUsers");
   return user;
 };
 
