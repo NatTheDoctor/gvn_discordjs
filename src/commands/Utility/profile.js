@@ -20,6 +20,6 @@ module.exports = new ApplicationCommand({
   run: async (client, interaction) => {
     let embed = new EmbedBuilder().setDescription("tét");
 
-    await interaction.reply({ embeds: embed, ephemeral: true });
+    await interaction.reply({ embeds: [embed], ephemeral: true });
   },
 }).toJSON();
