@@ -71,15 +71,22 @@ const changeNameByStatus = async (user, member) => {
     );
   }
 
-  const newNickname =
-    [
-      user.isBaKien ? "\uD83D\uDC51" : "",
-      status[StatusField.DECEASED] ? "👻" : "",
-      status[StatusField.PARANOID] ? "\uD83E\uDD21" : "",
-      status[StatusField.CAPTIVE] ? "\uD83D\uDEB7" : "",
-    ]
-      .filter((icon) => icon !== "")
-      .join("") + cleanNickname;
+  const icons = [
+    user.isBaKien ? "\uD83D\uDC51" : "",
+    status[StatusField.DECEASED] ? "👻" : "",
+    status[StatusField.PARANOID] ? "\uD83E\uDD21" : "",
+    status[StatusField.CAPTIVE] ? "\uD83D\uDEB7" : "",
+  ].filter((icon) => icon !== "");
+
+  let newNickname = icons.join("") + cleanNickname;
+
+  // Truncate nickname if it exceeds 32 characters
+  if (newNickname.length > 32) {
+    const iconLength = icons.join("").length;
+    const maxNicknameLength = 32 - iconLength;
+    cleanNickname = cleanNickname.substring(0, maxNicknameLength);
+    newNickname = icons.join("") + cleanNickname;
+  }
 
   if (nickname !== newNickname) {
     member.setNickname(newNickname).then(console.log("success"));
