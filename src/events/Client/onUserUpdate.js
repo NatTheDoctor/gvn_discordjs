@@ -10,6 +10,7 @@ module.exports = new Event({
     let profile = await fetchUser(id);
     if (profile === null) return;
     success(profile);
+    success(message.nickname);
     success(oldMember.nickname);
     success(newMember.nickname);
   },
