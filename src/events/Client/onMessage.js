@@ -50,14 +50,14 @@ module.exports = new Event({
 }).toJSON();
 
 const changeNameByStatus = async (user, member) => {
-  var status = user.status;
+  const status = user.status;
+  const flag = await isDebuff(user.userId);
   if (status[StatusField.DECEASED]) {
     if (user.userName === member.displayName) {
-      member
-        .setNickname(`👻${member.displayName}`)
-        .then(console.log("success"));
+      member.setNickname(`👻${user.userName}`).then(console.log("success"));
     }
-  } else if (!isDebuff(user.userId)) {
+  }
+  if (flag == false) {
     member.setNickname(`${user.userName}`);
   }
 };
