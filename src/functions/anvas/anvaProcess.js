@@ -15,7 +15,7 @@ const ROLE = {
   BAKIEN: "1242495746952007781",
 };
 
-const anvaProcess = async () => {
+const anvaProcess = async (author, members) => {
   let firstTarget = await fetchUser(members[0]);
   let secondTarget = null;
   let str = "";
