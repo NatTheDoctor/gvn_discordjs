@@ -1,19 +1,14 @@
 const { success } = require("../../utils/Console");
 const Event = require("../../structure/Event");
-const moment = require("moment");
-const {
-  fetchOrCreateMessage,
-  getAllMessage,
-} = require("../../queries/messageQuery");
+const { fetchOrCreateMessage } = require("../../queries/messageQuery");
 const {
   fetchUser,
   fetchOrCreateUser,
   statsInc,
   StatsField,
-  fetchAllUsers,
-  removeAllUsers,
   isDebuff,
   StatusField,
+  decreaseDebuffCount,
 } = require("../../queries/userQuery");
 
 const random = Math.floor(Math.random() * 3);
