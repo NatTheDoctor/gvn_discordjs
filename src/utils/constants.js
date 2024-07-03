@@ -1,9 +1,0 @@
-export const iconDeath = "👻";
-export const iconCrazy = "\uD83E\uDD21";
-export const iconJail = "\uD83D\uDEB7";
-export const iconBaKien = "\uD83D\uDC51";
-export const iconTunhan = "<a:tunhan:1255444756729692210>";
-export const iconCoGiat = "<a:cogiat:1255445604235083806>";
-export const iconChet = "<a:chet:1255446300942401646>";
-export const iconCoin = "<:notcoin:988449419621990470>";
-export const roleBaKien = "1242495746952007781";

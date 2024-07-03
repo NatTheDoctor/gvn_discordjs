@@ -1,4 +1,20 @@
 const { fetchUser } = require("../../queries/userQuery");
+
+const ICON = {
+  ICON_BAKIEN: "\uD83D\uDC51",
+  ICON_DECEASED: "👻",
+  EMO_DECEASED: "<a:chet:1255446300942401646>",
+  ICON_PARANOID: "\uD83E\uDD21",
+  EMO_PARANOID: "<a:cogiat:1255445604235083806>",
+  ICON_CAPTIVE: "\uD83D\uDEB7",
+  EMO_CAPTIVE: "<a:tunhan:1255444756729692210>",
+  ICON_COIN: "<:notcoin:988449419621990470>",
+};
+
+const ROLE = {
+  BAKIEN: "1242495746952007781",
+};
+
 const anvaProcess = async () => {
   let firstTarget = await fetchUser(members[0]);
   let secondTarget = null;
@@ -34,7 +50,7 @@ const anvaProcess = async () => {
 };
 
 const case1 = (author, target, amount) => {
-  return `<@${target.userId}> ăn đấm, ngất tại chỗ, mất tiền\n\`${author.userName}\`: **+${amount}** ${iconCoin}\n\`${target.userName}\`: **-${amount}** ${iconCoin}`;
+  return `<@${target.userId}> ăn đấm, ngất tại chỗ, mất tiền\n\`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}\n\`${target.userName}\`: **-${amount}** ${ICON.ICON_COIN}`;
 };
 
-module.exports = { anvaProcess };
+module.exports = { anvaProcess, ICON, ROLE };
