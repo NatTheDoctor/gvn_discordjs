@@ -14,6 +14,7 @@ const StatusField = {
   PARANOID: "isParanoid",
   DECEASED: "isDeceased",
   CAPTIVE: "isCaptive",
+  BAKIEN: "isBaKien",
 };
 
 const fetchUser = async (userId) => {
