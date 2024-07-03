@@ -162,6 +162,8 @@ const case5 = async (author, target, amount) => {
 };
 
 const case6 = async (author, target) => {
+  let nickname =
+    target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
   let chance = Math.floor(Math.random() * 100);
   if (chance <= 33) {
     str = `vào hòm
