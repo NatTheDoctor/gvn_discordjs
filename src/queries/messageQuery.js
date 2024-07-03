@@ -34,7 +34,7 @@ const getAllMessage = async (interaction) => {
       { "status.isCaptive": { $ne: true } },
     ],
   });
-  console.log(messages);
+  success(messages);
   let members = [];
   for (x of messages) {
     if (members.includes(x.userId)) continue;
