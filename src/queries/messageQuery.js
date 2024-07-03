@@ -19,12 +19,13 @@ const fetchOrCreateMessage = async (m, user) => {
   return query;
 };
 
-const getAllMessage = async (message) => {
+const getAllMessage = async (interaction) => {
   const threeMinutesAgo = new Date(Date.now() - 3 * 60 * 1000); // 3 minutes ago
   const messages = await MessageSchema.find({
-    userId: { $ne: message.author.id },
-    channelId: message.channelId,
-    timestamp: { $gte: threeMinutesAgo }, // timestamp is greater than or equal to 3 minutes ago
+    userId: { $ne: interaction.user.id },
+    channelId: interaction.channelId,
+    timestamp: { $gte: threeMinutesAgo },
+    status: { isDeceased: false, isParanoid: false, isCaptive: false },
   });
   return messages.length;
 };

@@ -18,6 +18,9 @@ module.exports = new ApplicationCommand({
    * @param {ChatInputCommandInteraction} interaction
    */
   run: async (client, interaction) => {
+    let id = interaction.user.id;
+    let members = await getAllMessage();
+    console.log(members);
     let embed = new EmbedBuilder().setDescription("tét");
 
     await interaction.reply({ embeds: [embed], ephemeral: true });
