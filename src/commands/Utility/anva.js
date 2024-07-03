@@ -30,7 +30,6 @@ module.exports = new ApplicationCommand({
     }
 
     let members = await getAllMessage(interaction);
-    success(members.length);
     if (members.length < 1) {
       embed.setDescription(
         `\`#${interaction.channel.name}\`\nKhông có ai để ăn vạ.`
