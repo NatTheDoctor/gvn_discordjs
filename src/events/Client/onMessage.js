@@ -10,6 +10,7 @@ const {
   StatusField,
   decreaseDebuffCount,
 } = require("../../queries/userQuery");
+const { ICON } = require("../../functions/anvas/anvaProcess");
 
 const random = Math.floor(Math.random() * 3);
 const cooldownMap = new Map();
@@ -72,10 +73,10 @@ const changeNameByStatus = async (user, member) => {
   }
 
   const icons = [
-    user.isBaKien ? "\uD83D\uDC51" : "",
-    status[StatusField.DECEASED] ? "👻" : "",
-    status[StatusField.PARANOID] ? "\uD83E\uDD21" : "",
-    status[StatusField.CAPTIVE] ? "\uD83D\uDEB7" : "",
+    user.isBaKien ? ICON.ICON_BAKIEN : "",
+    status[StatusField.DECEASED] ? ICON.ICON_DECEASED : "",
+    status[StatusField.PARANOID] ? ICON.ICON_PARANOID : "",
+    status[StatusField.CAPTIVE] ? ICON.ICON_CAPTIVE : "",
   ].filter((icon) => icon !== "");
 
   let newNickname = icons.join("") + cleanNickname;
