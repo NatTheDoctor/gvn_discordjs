@@ -38,14 +38,16 @@ module.exports = new ApplicationCommand({
       let members = await getAllMessage(interaction);
       if (members.length < 1) {
         embed.setDescription(
-          `\`#${interaction.channel.name}\`\nKhông có ai để ăn vạ.`
+          `\`#${interaction.channel.name}\`
+          Không có ai để ăn vạ.`
         );
         return await interaction.reply({ embeds: [embed], ephemeral: true });
       }
       let profile = await fetchUser(interaction.user.id);
       if (profile.coin < 36) {
         embed.setDescription(
-          `\`#${interaction.channel.name}\`\nKhông đủ tiền để ăn vạ`
+          `\`#${interaction.channel.name}\`
+          Không đủ tiền để ăn vạ`
         );
         return await interaction.reply({ embeds: [embed], ephemeral: true });
       }
@@ -53,8 +55,7 @@ module.exports = new ApplicationCommand({
       const status = await isDebuff(id);
       if (status) {
         embed.setDescription(
-          `\`
-          #${interaction.channel.name}\`
+          `\`#${interaction.channel.name}\`
           Dính trạng thái, không ăn vạ được nhé`
         );
         return await interaction.reply({ embeds: [embed], ephemeral: true });
