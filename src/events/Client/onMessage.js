@@ -57,7 +57,7 @@ const changeNameByStatus = async (user, member) => {
         .setNickname(`👻${member.displayName}`)
         .then(console.log("success"));
     }
-  } else if (isDebuff(user.userId) === false) {
+  } else if (!isDebuff(user.userId)) {
     member.setNickname(`${user.userName}`);
   }
 };
