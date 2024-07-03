@@ -48,7 +48,7 @@ const anvaProcess = async (author, members) => {
       str = case5(author, firstTarget, amount);
       break;
     case 6:
-      str = case6(firstTarget);
+      str = case6(author, firstTarget);
       break;
     case 7:
       str = case7(author, firstTarget);
@@ -161,7 +161,7 @@ const case5 = async (author, target, amount) => {
   return `vừa gặp <@${target.userId}> đã yêu, hai bên ôm nhau thắm thiết ra về `;
 };
 
-const case6 = async (target) => {
+const case6 = async (author, target) => {
   let chance = Math.floor(Math.random() * 100);
   if (chance <= 33) {
     str = `vào hòm
