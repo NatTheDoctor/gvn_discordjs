@@ -206,7 +206,7 @@ const case8 = async (author, target, amount) => {
   await exchangeBaKien(author, firstTarget);
 
   return `<@${target.userId}> đánh ngất \`${
-    author.username
+    author.userName
   }\`, cướp tiền nhưng làm rớt
     \`${author.userName}\`: **-${amount - lossCoin}** ${ICON.ICON_COIN}
     \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN} 
@@ -229,7 +229,7 @@ const case9 = async (author, target, amount) => {
   await statsInc(author.userId, StatsField.EXP, -amount);
   await statsInc(target.userId, StatsField.EXP, -amount);
 
-  return `<@${target.userId}> đánh hoà \`${author.username}\` ${str}`;
+  return `<@${target.userId}> đánh hoà \`${author.userName}\` ${str}`;
 };
 
 const case10 = async (author, target, amount) => {
@@ -321,7 +321,7 @@ const case11 = async (author, target, amount) => {
   let strBaKien = `\n\`${author.userName}\` -> ${ICON.ICON_BAKIEN} \`${nickname}\``;
   await exchangeBaKien(author, firstTarget);
 
-  return `<@${target.userId}> rút dao chém \`${author.username}\` ${str} ${strBaKien}`;
+  return `<@${target.userId}> rút dao chém \`${author.userName}\` ${str} ${strBaKien}`;
 };
 
 const exchangeBaKien = async (hadBaKien, notHaveBaKien) => {
