@@ -49,6 +49,7 @@ module.exports = new Event({
 
 const changeNameByStatus = async (user, member) => {
   const status = user.status;
+  const nickname = member.nickname;
   const icons = [];
   if (user.isBaKien) {
     icons.push("\uD83D\uDC51");
