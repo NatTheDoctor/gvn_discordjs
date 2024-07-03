@@ -25,7 +25,11 @@ const getAllMessage = async (interaction) => {
     userId: { $ne: interaction.user.id },
     channelId: interaction.channelId,
     timestamp: { $gte: threeMinutesAgo },
-    status: { isDeceased: false, isParanoid: false, isCaptive: false },
+    status: {
+      $ne: { isDeceased: true },
+      $ne: { isParanoid: true },
+      $ne: { isCaptive: true },
+    },
   });
   return messages.length;
 };
