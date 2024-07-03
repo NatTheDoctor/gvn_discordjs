@@ -52,10 +52,13 @@ module.exports = new Event({
 const changeNameByStatus = async (user, member) => {
   const status = user.status;
   if (status[StatusField.DECEASED]) {
-    member.setNickname(`👻${user.userName}`).then(console.log("success"));
+    if (!member.displayName.startsWith("👻")) {
+      member.setNickname(`👻${user.userName}`).then(console.log("success"));
+    }
   } else {
-    if (member.displayName === user.userName) return;
-    member.setNickname(`${user.userName}`).then(console.log("success"));
+    if (member.displayName.startsWith("👻")) {
+      member.setNickname(`${user.userName}`).then(console.log("success"));
+    }
   }
 };
 

@@ -27,7 +27,7 @@ module.exports = new ApplicationCommand({
   run: async (client, interaction) => {
     let profile = await fetchUser(interaction.user.id);
     if (profile === null) return;
-    await setDebuff(profile.userId, StatusField.DECEASED, true);
+    await setDebuff(profile.userId, StatusField.DECEASED, false);
     await interaction.reply({
       content: "**Pong!** " + client.ws.ping + "ms",
     });
