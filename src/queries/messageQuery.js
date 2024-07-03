@@ -4,6 +4,7 @@ const { success } = require("../utils/Console");
 const fetchOrCreateMessage = async (m, user) => {
   const message = await MessageSchema.findOne({ messageId: m.id }).lean();
   if (message) return message;
+  console.log(user);
   const query = new MessageSchema({
     messageId: m.id,
     channelId: m.channel.id,
