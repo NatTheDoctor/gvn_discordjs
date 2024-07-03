@@ -1,6 +1,6 @@
 const processAnva = async () => {
   let str = "";
-  let random = Math.floor(Math.random() * 6);
+  let random = Math.floor(Math.random() * 6) + 1;
   switch (random) {
     case 1:
       str = "1";
