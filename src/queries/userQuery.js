@@ -22,7 +22,7 @@ const fetchUser = async (userId) => {
   const user = await UserSchema.findOne({ userId: userId });
   const endTime = performance.now();
   const executionTime = (endTime - startTime).toFixed(1);
-  success(`FetchUser: ${user.userName} ${executionTime.toFixed(2)} ms`);
+  success(`FetchUser: ${user.userName} ${executionTime} ms`);
   return user;
 };
 
