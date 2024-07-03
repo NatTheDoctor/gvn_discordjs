@@ -52,11 +52,14 @@ const changeNameByStatus = async (user, member) => {
   const nickname = member.nickname;
   const userName = user.userName;
 
-  // Remove any existing icons from the nickname
-  const cleanNickname = nickname.replace(
-    /[\uD83D\uDC51\uD83E\uDD21\uD83D\uDEB7]/g,
-    ""
-  );
+  let cleanNickname = nickname;
+  if (nickname !== null) {
+    // Remove any existing icons from the nickname
+    cleanNickname = nickname.replace(
+      /[\uD83D\uDC51\uD83E\uDD21\uD83D\uDEB7]/g,
+      ""
+    );
+  }
 
   const newNickname =
     [
