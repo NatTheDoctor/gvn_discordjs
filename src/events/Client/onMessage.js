@@ -51,20 +51,22 @@ module.exports = new Event({
 
 const changeNameByStatus = async (user, member) => {
   const status = user.status;
-  const nickname = member.nickname;
-  const flag = await isDebuff(user.usersId);
-  if (status[StatusField.DECEASED]) {
-    if (!nickname?.startsWith("👻")) {
-      member.setNickname(`👻${user.userName}`).then(console.log("success"));
-    }
-  } else {
-    if (nickname?.startsWith("👻")) {
-      member.setNickname(`${user.userName}`).then(console.log("success"));
-    }
+  const icons = [];
+  if (user.isBaKien) {
+    icons.push("\uD83D\uDC51");
   }
-  console.log(flag);
-  if (!flag) {
-    console.log("a");
+  if (status[StatusField.DECEASED]) {
+    icons.push("👻");
+  }
+  if (status[StatusField.PARANOID]) {
+    icons.push("\uD83E\uDD21");
+  }
+  if (status[StatusField.CAPTIVE]) {
+    icons.push("\uD83D\uDEB7");
+  }
+  const newNickname = icons.join("") + user.userName;
+  if (nickname !== newNickname) {
+    member.setNickname(newNickname).then(console.log("success"));
   }
 };
 
