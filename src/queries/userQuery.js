@@ -104,6 +104,13 @@ const setDebuff = async (id, field, flag) => {
   });
 };
 
+const setBuff = async (id, flag) => {
+  let user = await fetchUser(id);
+  if (user === null) return;
+  user.isBaKien = flag;
+  user.save();
+};
+
 const removeAllUsers = async () => {
   await UserSchema.deleteMany();
 };

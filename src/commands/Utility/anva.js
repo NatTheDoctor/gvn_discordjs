@@ -2,8 +2,10 @@ const { ChatInputCommandInteraction, EmbedBuilder } = require("discord.js");
 const DiscordBot = require("../../client/DiscordBot");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
 const { getAllMessage } = require("../../queries/messageQuery");
-const { fetchUser } = require("../../queries/userQuery");
+const { fetchUser, statsInc, StatsField } = require("../../queries/userQuery");
 const { anvaProcess } = require("../../functions/anvas/anvaProcess");
+
+const cooldownMap = new Map();
 
 module.exports = new ApplicationCommand({
   command: {
@@ -13,12 +15,19 @@ module.exports = new ApplicationCommand({
     options: [],
   },
   options: {
-    cooldown: 5000,
+    cooldown: 30000,
   },
   run: async (client, interaction) => {
     let embed = new EmbedBuilder();
     let id = interaction.user.id;
-    if (id !== "769368349414785055") return;
+
+    const now = Date.now();
+    const cooldownTime = 15 * 1000; // 1 minute
+    const lastExecutionTime = cooldownMap.get(interaction.channelId);
+    if (lastExecutionTime && now - lastExecutionTime < cooldownTime) {
+      return; // cooldown not expired, skip execution
+    }
+
     let members = await getAllMessage(interaction);
     if (members.length < 1) {
       embed.setDescription(
@@ -32,5 +41,8 @@ module.exports = new ApplicationCommand({
 
     embed.setDescription(result);
     await interaction.reply({ embeds: [embed] });
+
+    await statsInc(id, StatsField.COIN, -36);
+    cooldownMap.set(interaction.channelId, now); // update last execution time
   },
 }).toJSON();

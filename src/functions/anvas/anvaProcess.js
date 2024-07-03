@@ -34,23 +34,35 @@ const anvaProcess = async (author, members) => {
     case 1: //Author win, firstTarget mất tiền
       str = case1(author, firstTarget, amount);
       break;
-    case 2:
+    case 2: //Author win, firstTarget mất tiền, rớt tiền
       str = case2(author, firstTarget, amount);
       break;
     case 3:
       str = case3(author, firstTarget, amount);
       break;
     case 4:
-      str = case4(author, firstTarget, amount);
+      str = case4(author, firstTarget);
       break;
     case 5:
       str = case5(author, firstTarget, amount);
       break;
     case 6:
-      str = case6(author, firstTarget, amount);
+      str = case6(firstTarget);
       break;
     case 7:
-      str = "7";
+      str = case7(author, firstTarget);
+      break;
+    case 8:
+      str = case8(author, firstTarget, amount);
+      break;
+    case 9:
+      str = case9(author, firstTarget, amount);
+      break;
+    case 10:
+      str = case10(author, firstTarget, amount);
+      break;
+    case 11:
+      str = case11(author, firstTarget, amount);
       break;
   }
   return str;
@@ -65,7 +77,14 @@ const case1 = async (author, target, amount) => {
 
   await statsInc(author.userId, StatsField.EXP, amount);
   await statsInc(target.userId, StatsField.EXP, -amount);
-  return `đánh ngất <@${target.userId}>, loot tiền\n\`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}\n${nickname}: **-${amount}** ${ICON.ICON_COIN}`;
+
+  let strBaKien = `\`${nickname}\` -> ${ICON.ICON_BAKIEN} \`${author.userName}\``;
+  await exchangeBaKien(firstTarget, author);
+
+  return `đánh ngất <@${target.userId}>, loot tiền
+  \`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}
+  ${nickname}: **-${amount}** ${ICON.ICON_COIN}
+  ${strBaKien}`;
 };
 const case2 = async (author, target, amount) => {
   let nickname =
@@ -77,11 +96,12 @@ const case2 = async (author, target, amount) => {
 
   await statsInc(author.userId, StatsField.EXP, amount);
   await statsInc(target.userId, StatsField.EXP, -amount);
-  return `đấm <@${target.userId}> bầm dập, loot thì ít mà rớt thì nhiều\n\`${
-    author.userName
-  }\`: **+${amount - lossCoin}** ${
-    ICON.ICON_COIN
-  }\n${nickname}: **-${amount}** ${ICON.ICON_COIN}`;
+  let strBaKien = `\`${nickname}\` -> ${ICON.ICON_BAKIEN} \`${author.userName}\``;
+  await exchangeBaKien(firstTarget, author);
+  return `đấm <@${target.userId}> bầm dập, loot thì ít mà rớt thì nhiều
+  \`${author.userName}\`: **+${amount - lossCoin}** ${ICON.ICON_COIN}
+  ${nickname}: **-${amount}** ${ICON.ICON_COIN}
+  ${strBaKien}`;
 };
 const case3 = async (author, target, amount) => {
   let nickname =
@@ -90,16 +110,16 @@ const case3 = async (author, target, amount) => {
   let random = Math.floor(Math.random() * 100);
   let str = "";
   if (random < 50) {
-    str = `hai đứa ăn hại làm rớt ví\n\`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}\n${nickname}: **-${amount}** ${ICON.ICON_COIN}`;
+    str = `, hai đứa ăn hại làm rớt ví\n\`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}\n${nickname}: **-${amount}** ${ICON.ICON_COIN}`;
     await statsInc(author.userId, StatsField.COIN, -amount);
     await statsInc(target.userId, StatsField.COIN, -amount);
 
     await statsInc(author.userId, StatsField.EXP, -amount);
     await statsInc(target.userId, StatsField.EXP, -amount);
   }
-  return `đánh hoà với <@${target.userId}>,${str}`;
+  return `đánh hoà với <@${target.userId}> ${str}`;
 };
-const case4 = async (author, target, amount) => {
+const case4 = async (author, target) => {
   let nickname =
     target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
   let authorChance = Math.floor(Math.random() * 100);
@@ -140,40 +160,173 @@ const case5 = async (author, target, amount) => {
   return `vừa gặp <@${target.userId}> đã yêu, hai bên ôm nhau thắm thiết ra về `;
 };
 
-const case6 = async (author, target, amount) => {
-  let nickname =
-    target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
+const case6 = async (target) => {
   let chance = Math.floor(Math.random() * 100);
-  chance = 99;
   if (chance <= 33) {
-    str = "vào hòm";
+    str = `vào hòm
+    \`${author.userName}\`: hihi
+    \`${nickname}\`: ${ICON.EMO_DECEASED}`;
     await setDebuff(target.userId, StatusField.DECEASED, true);
   } else if (chance <= 67) {
-    str = "vào trại thương điên";
+    str = `vào trại thương điên
+    \`${author.userName}\`: hihi
+    \`${nickname}\`: ${ICON.EMO_PARANOID}`;
     await setDebuff(target.userId, StatusField.PARANOID, true);
   } else {
-    str = "vào tù";
+    str = `vào tù"
+    \`${author.userName}\`: hihi
+    \`${nickname}\`: ${ICON.EMO_CAPTIVE}`;
     await setDebuff(target.userId, StatusField.CAPTIVE, true);
   }
-  return `hoá chaos tiễn <@${target.userId}> ${str}`;
+  let strBaKien = `\`${author.userName}\` -> ${ICON.ICON_BAKIEN} \`${nickname}\``;
+  await exchangeBaKien(author, firstTarget);
+  return `hoá chaos tiễn <@${target.userId}> ${str}
+  ${strBaKien}`;
 };
 
-const case7 = async (author, target, amount) => {
+const case7 = async (author, target) => {
+  return `<@${target.userId}> vừa chạy vừa chửi \`${author.userName}\` phế vật vô dụng`;
+};
+
+const case8 = async (author, target, amount) => {
   let nickname =
     target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
-  let chance = Math.floor(Math.random() * 100);
-  let str = "";
-  if (chance <= 50) {
-    str = `còn nhặt được tiền dưới đất.
-    \`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}
-    \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
 
+  let lossCoin = Math.floor(Math.random() * amount) + 1;
+  await statsInc(author.userId, StatsField.COIN, -amount);
+  await statsInc(target.userId, StatsField.COIN, amount - lossCoin);
+
+  await statsInc(author.userId, StatsField.EXP, -amount);
+  await statsInc(target.userId, StatsField.EXP, amount - lossCoin);
+
+  let strBaKien = `\`${author.userName}\` -> ${ICON.ICON_BAKIEN} \`${nickname}\``;
+  await exchangeBaKien(author, firstTarget);
+
+  return `<@${target.userId}> đánh ngất \`${
+    author.username
+  }\`, cướp tiền nhưng làm rớt
+    \`${author.userName}\`: **-${amount - lossCoin}** ${ICON.ICON_COIN}
+    \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN} 
+    ${strBaKien}`;
+};
+
+const case9 = async (author, target, amount) => {
+  let nickname =
+    target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
+  let str = "";
+  let chance = Math.floor(Math.random() * 100);
+  if (chance < 50) {
+    str = `, phạt cả hai tội gây rối nơi công cộng
+    \`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}
+    \`${nickname}\`: **-${amount}** ${ICON.ICON_COIN}`;
+  }
+  await statsInc(author.userId, StatsField.COIN, -amount);
+  await statsInc(target.userId, StatsField.COIN, -amount);
+
+  await statsInc(author.userId, StatsField.EXP, -amount);
+  await statsInc(target.userId, StatsField.EXP, -amount);
+
+  return `<@${target.userId}> đánh hoà \`${author.username}\` ${str}`;
+};
+
+const case10 = async (author, target, amount) => {
+  let nickname =
+    target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
+  let str = "";
+  let chance = Math.floor(Math.random() * 100);
+  if (chance < 33) {
+    chance = Math.floor(Math.random() * 100);
+    if (chance < 50) {
+      str = `trượt chân té chết
+    \`${author.userName}\`: hihi
+    \`${nickname}\`: ${ICON.EMO_DECEASED}`;
+      await setDebuff(target.userId, StatusField.DECEASED, true);
+    } else {
+      str = `trượt chân té không chết nhưng u não
+    \`${author.userName}\`: hihi
+    \`${nickname}\`: ${ICON.EMO_PARANOID}`;
+      await setDebuff(target.userId, StatusField.PARANOID, true);
+    }
+  } else if (chance < 67) {
+    str = `bị \`${author.userName}\` túm lại thông toác đuýt, bị cướp tiền viện phí, ném dưới gầm cầu Vũ Đại
+    \`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}
+    \`${nickname}\`: **-${amount}** ${ICON.ICON_COIN}`;
     await statsInc(author.userId, StatsField.COIN, amount);
-    await statsInc(target.userId, StatsField.COIN, amount);
+    await statsInc(target.userId, StatsField.COIN, -amount);
 
     await statsInc(author.userId, StatsField.EXP, amount);
+    await statsInc(target.userId, StatsField.EXP, -amount);
+  } else {
+    let subStr = "";
+    chance = Math.floor(Math.random() * 100);
+    if (chance <= 50) {
+      subStr = `chết \`${author.userName}\`, lột tiền`;
+      subStr += `\n\`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}, ${ICON.EMO_DECEASED}
+      \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
+      await setDebuff(user.userId, StatusField.DECEASED, true);
+    } else {
+      subStr = `ngất \`${author.userName}\`, lột tiền`;
+      subStr += `\n\`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}
+      \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
+    }
+    await statsInc(author.userId, StatsField.COIN, -amount);
+    await statsInc(target.userId, StatsField.COIN, amount);
+
+    await statsInc(author.userId, StatsField.EXP, -amount);
     await statsInc(target.userId, StatsField.EXP, amount);
+
+    str = `nhặt được bí kíp, bùng nổ bách vạn thần quyền, đấm ${subStr}`;
   }
-  return `vừa gặp <@${target.userId}> đã yêu, hai bên ôm nhau thắm thiết ra về `;
+
+  return `<@${target.userId}> chạy thoát nhưng ${str}`;
+};
+
+const case11 = async (author, target, amount) => {
+  let nickname =
+    target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
+  let str = "";
+  let chance = Math.floor(Math.random() * 100);
+  if (chance < 33) {
+    str += ` rồi cướp tiền
+    \`${author.userName}\`: **-${amount - lossCoin}** ${ICON.ICON_COIN}
+    \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
+
+    await statsInc(author.userId, StatsField.COIN, -amount);
+    await statsInc(target.userId, StatsField.COIN, amount);
+
+    await statsInc(author.userId, StatsField.EXP, -amount);
+    await statsInc(target.userId, StatsField.EXP, amount);
+  } else if (chance < 55) {
+    str += ` rồi cướp sắc, cướp xong giết luôn
+    \`${author.userName}\`: ${ICON.EMO_DECEASED}
+    \`${nickname}\`: hihi`;
+
+    await setDebuff(author.userId, StatusField.DECEASED, true);
+  } else {
+    str += ` rồi cướp tiền, cướp sắc, cướp cả mạng
+    \`${author.userName}\`: **-${amount - lossCoin}** ${ICON.ICON_COIN}, ${
+      ICON.EMO_DECEASED
+    }
+    \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
+
+    await statsInc(author.userId, StatsField.COIN, -amount);
+    await statsInc(target.userId, StatsField.COIN, amount);
+
+    await statsInc(author.userId, StatsField.EXP, -amount);
+    await statsInc(target.userId, StatsField.EXP, amount);
+
+    await setDebuff(author.userId, StatusField.DECEASED, true);
+  }
+  let strBaKien = `\n\`${author.userName}\` -> ${ICON.ICON_BAKIEN} \`${nickname}\``;
+  await exchangeBaKien(author, firstTarget);
+
+  return `<@${target.userId}> rút dao chém \`${author.username}\` ${str} ${strBaKien}`;
+};
+
+const exchangeBaKien = async (hadBaKien, notHaveBaKien) => {
+  if (hadBaKien.isBaKien) {
+    await setBuff(hadBaKien.userId, false);
+    await setBuff(notHaveBaKien.userId, false);
+  }
 };
 module.exports = { anvaProcess, ICON, ROLE };

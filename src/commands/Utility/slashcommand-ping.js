@@ -25,11 +25,6 @@ module.exports = new ApplicationCommand({
    * @param {ChatInputCommandInteraction} interaction
    */
   run: async (client, interaction) => {
-    let profile = await fetchUser("709400346207846430");
-    if (profile === null) return;
-    profile.status.count = 10;
-    profile.save();
-    console.log(profile);
     await interaction.reply({
       content: "**Pong!** " + client.ws.ping + "ms",
     });
