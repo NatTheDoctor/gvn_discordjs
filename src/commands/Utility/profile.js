@@ -21,10 +21,11 @@ module.exports = new ApplicationCommand({
     let profile = await fetchUser(interaction.user.id);
     if (profile === null) return;
 
+    embed.setThumbnail(interaction.user.displayAvatarURL);
     embed.setDescription(`
-      Trạng thái: ${profile.status.count}
       <:notcoin:988449419621990470>: ${profile.coin}
       🧪: ${((profile.exp / profile.maxExp) * 100).toFixed(2)}%
+      Debuff: ${profile.status.count}
       `);
     await interaction.reply({ embeds: [embed] });
   },
