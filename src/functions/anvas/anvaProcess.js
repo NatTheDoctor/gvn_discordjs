@@ -51,7 +51,9 @@ const anvaProcess = async (author, members) => {
 };
 
 const case1 = (author, target, amount) => {
-  return `<@${target.userId}> ăn đấm, ngất tại chỗ, mất tiền\n\`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}\n\`${target.userName}\`: **-${amount}** ${ICON.ICON_COIN}`;
+  let nickname =
+    target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
+  return `<@${target.userId}> ăn đấm, ngất tại chỗ, mất tiền\n\`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}\n${nickname}: **-${amount}** ${ICON.ICON_COIN}`;
 };
 
 module.exports = { anvaProcess, ICON, ROLE };

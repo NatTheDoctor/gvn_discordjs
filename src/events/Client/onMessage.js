@@ -75,15 +75,3 @@ const changeNameByStatus = async (user, member) => {
     member.setNickname(newNickname).then(console.log("success"));
   }
 };
-
-/*
-	public static final String iconDeath = "👻";
-	public static final String iconCrazy = "\uD83E\uDD21";
-	public static final String iconJail = "\uD83D\uDEB7";
-	public static final String iconBaKien = "\uD83D\uDC51";
-	private static final String iconJail = "<a:tunhan:1255444756729692210>";
-	private static final String iconParanoid = "<a:cogiat:1255445604235083806>";
-	private static final String iconDeceased = "<a:chet:1255446300942401646>";
-	private static final String iconCoin = "<:notcoin:988449419621990470>";
-	private static final String roleBaKien = "1242495746952007781";
-*/
