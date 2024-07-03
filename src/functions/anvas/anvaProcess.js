@@ -1,7 +1,7 @@
 const { fetchUser } = require("../../queries/userQuery");
 const { iconCoin } = require("../../utils/constants");
 
-const anvaProcess = async () => {
+export async function anvaProcess() {
   //   let firstTarget = await fetchUser(members[0]);
   //   let secondTarget = null;
   //   let str = "";
@@ -33,10 +33,8 @@ const anvaProcess = async () => {
   //       break;
   //   }
   //   return str;
-};
+}
 
 const case1 = (author, target, amount) => {
   return `<@${target.userId}> ăn đấm, ngất tại chỗ, mất tiền\n\`${author.userName}\`: **+${amount}** ${iconCoin}\n\`${target.userName}\`: **-${amount}** ${iconCoin}`;
 };
-
-module.exports = { anvaProcess };
