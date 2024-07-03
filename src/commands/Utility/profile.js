@@ -4,6 +4,7 @@ const ApplicationCommand = require("../../structure/ApplicationCommand");
 const { getAllMessage } = require("../../queries/messageQuery");
 const { fetchUser } = require("../../queries/userQuery");
 const { anvaProcess } = require("../../functions/anvas/anvaProcess");
+const { success } = require("../../utils/Console");
 
 module.exports = new ApplicationCommand({
   command: {
@@ -20,7 +21,7 @@ module.exports = new ApplicationCommand({
     let id = interaction.user.id;
     let profile = await fetchUser(interaction.user.id);
     if (profile === null) return;
-
+    success(profile);
     embed.setDescription(`
       <:notcoin:988449419621990470>: ${profile.coin}
       🧪: ${((profile.exp / profile.maxExp) * 100).toFixed(2)}%
