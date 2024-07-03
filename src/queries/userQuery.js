@@ -20,6 +20,7 @@ const StatusField = {
 const fetchUser = async (userId) => {
   const startTime = performance.now();
   const user = await UserSchema.findOne({ userId: userId });
+  if (user === null) return;
   const endTime = performance.now();
   const executionTime = (endTime - startTime).toFixed(1);
   success(`FetchUser: ${user.userName} ${executionTime} ms`);
