@@ -58,6 +58,7 @@ const changeNameByStatus = async (user, member) => {
     }
   } else {
     if (nickname?.startsWith("👻")) {
+      console.log(user);
       member.setNickname(`${user.userName}`).then(console.log("success"));
     }
   }
