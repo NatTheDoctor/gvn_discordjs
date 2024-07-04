@@ -13,7 +13,7 @@ const case1 = async (author, target, amount) => {
   await statsInc(target.userId, StatsField.EXP, -amount);
 
   let strBaKien = "";
-  if (author.isBaKien) {
+  if (target.isBaKien) {
     strBaKien = `\`${nickname}\` -> ${ICON.ICON_BAKIEN} \`${author.userName}\``;
     await exchangeBaKien(target, author);
   }
