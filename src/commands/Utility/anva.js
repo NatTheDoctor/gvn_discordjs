@@ -68,6 +68,6 @@ module.exports = new ApplicationCommand({
     await interaction.followUp({ content: result });
 
     await statsInc(id, StatsField.COIN, -36);
-    cooldownMap.set(interaction.channelId, now); // update last execution time
+    cooldownMap.set(interaction.channelId, now);
   },
 }).toJSON();
