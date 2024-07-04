@@ -37,7 +37,7 @@ const getAllMessage = async (interaction) => {
   let members = [];
   for (x of messages) {
     if (members.includes(x.userId)) continue;
-    if (isDebuff(x.userId)) continue;
+
     success(x.userId);
     members.push(x.userId);
   }
