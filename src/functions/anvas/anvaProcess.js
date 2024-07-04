@@ -11,21 +11,6 @@ const { case7 } = require("./case7");
 const { case8 } = require("./case8");
 const { case9 } = require("./case9");
 
-const ICON = {
-  ICON_BAKIEN: "\uD83D\uDC51",
-  ICON_DECEASED: "👻",
-  EMO_DECEASED: "<a:chet:1255446300942401646>",
-  ICON_PARANOID: "\uD83E\uDD21",
-  EMO_PARANOID: "<a:cogiat:1255445604235083806>",
-  ICON_CAPTIVE: "\uD83D\uDEB7",
-  EMO_CAPTIVE: "<a:tunhan:1255444756729692210>",
-  ICON_COIN: "<:notcoin:988449419621990470>",
-};
-
-const ROLE = {
-  BAKIEN: "1242495746952007781",
-};
-
 const anvaProcess = async (author, members) => {
   let firstTarget = await fetchUser(members[0]);
   let secondTarget = null;
@@ -78,4 +63,4 @@ const exchangeBaKien = async (hadBaKien, notHaveBaKien) => {
     await setBuff(notHaveBaKien.userId, false);
   }
 };
-module.exports = { anvaProcess, ICON, ROLE, exchangeBaKien };
+module.exports = { anvaProcess, exchangeBaKien };

@@ -1,5 +1,5 @@
 const { StatsField, statsInc } = require("../../queries/userQuery");
-const { ICON } = require("./anvaProcess");
+const { ICON } = require("./ICON");
 
 const case8 = async (author, target, amount) => {
   let nickname =

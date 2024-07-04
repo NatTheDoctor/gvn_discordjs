@@ -1,6 +1,6 @@
 const { setDebuff, StatusField } = require("../../queries/userQuery");
-const { ICON, exchangeBaKien } = require("./anvaProcess");
-
+const { exchangeBaKien } = require("./anvaProcess");
+const { ICON } = require("./ICON");
 const case6 = async (author, target) => {
   let nickname =
     target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
