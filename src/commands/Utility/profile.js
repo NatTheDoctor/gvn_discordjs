@@ -21,8 +21,8 @@ module.exports = new ApplicationCommand({
     let id = interaction.user.id;
     let profile = await fetchUser(interaction.user.id);
     if (profile === null) return;
-    success(profile);
     embed.setDescription(`
+      Tuổi: ${profile.level}
       <:notcoin:988449419621990470>: ${profile.coin}
       🧪: ${((profile.exp / profile.maxExp) * 100).toFixed(2)}%
       Debuff: ${profile.status.count}
