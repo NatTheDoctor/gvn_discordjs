@@ -8,6 +8,7 @@ const {
 } = require("./CommandOptions");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
 const { error, success } = require("../../utils/Console");
+const { COLORS } = require("../../utils/colors");
 
 class CommandsListener {
   /**
@@ -123,7 +124,7 @@ class CommandsListener {
         const endTime = performance.now();
         const executionTime = (endTime - startTime).toFixed(1);
         success(
-          `${interaction.channel.name} ${interaction.user.displayName} ${executionTime} ms`
+          `${COLORS.FgRed}#${interaction.channel.name}${COLORS.Reset} ${interaction.user.displayName} ${executionTime} ms`
         );
       } catch (err) {
         error(err);
