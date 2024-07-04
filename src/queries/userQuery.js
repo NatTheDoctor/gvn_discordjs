@@ -25,6 +25,10 @@ const fetchAllUsers = async (userId) => {
   return await UserSchema.find();
 };
 
+const fetchAllDailyUser = async (userId) => {
+  return await UserSchema.find({ isDaily: true });
+};
+
 const fetchOrCreateUser = async (member) => {
   const user = await fetchUser(member.id);
   if (user) return user;
@@ -127,6 +131,7 @@ module.exports = {
   StatusField,
   fetchUser,
   fetchAllUsers,
+  fetchAllDailyUser,
   fetchOrCreateUser,
   statsInc,
   isDebuff,
