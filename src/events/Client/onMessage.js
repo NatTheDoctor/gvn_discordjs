@@ -10,7 +10,6 @@ const {
   StatusField,
   decreaseDebuffCount,
 } = require("../../queries/userQuery");
-const { ICON } = require("./ICON");
 const { scheduleDaily } = require("../../utils/scheduleDaily");
 const { COLORS } = require("../../utils/colors");
 
