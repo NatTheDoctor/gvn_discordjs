@@ -111,6 +111,13 @@ const setBuff = async (id, flag) => {
   user.save();
 };
 
+const setDaily = async (id, flag) => {
+  let user = await fetchUser(id);
+  if (user === null) return;
+  user.isDaily = flag;
+  user.save();
+};
+
 const removeAllUsers = async () => {
   await UserSchema.deleteMany();
 };
@@ -125,6 +132,7 @@ module.exports = {
   isDebuff,
   setDebuff,
   setBuff,
+  setDaily,
   decreaseDebuffCount,
   removeAllUsers,
 };
