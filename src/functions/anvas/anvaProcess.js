@@ -304,9 +304,7 @@ const case11 = async (author, target, amount) => {
   let str = "";
   let chance = Math.floor(Math.random() * 100);
   if (chance < 33) {
-    str += ` rồi cướp tiền
-    \`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}
-    \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
+    str += ` rồi cướp tiền\n\`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}\n\`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
 
     await statsInc(author.userId, StatsField.COIN, -amount);
     await statsInc(target.userId, StatsField.COIN, amount);
@@ -314,15 +312,11 @@ const case11 = async (author, target, amount) => {
     await statsInc(author.userId, StatsField.EXP, -amount);
     await statsInc(target.userId, StatsField.EXP, amount);
   } else if (chance < 55) {
-    str += ` rồi cướp sắc, cướp xong giết luôn
-    \`${author.userName}\`: ${ICON.EMO_DECEASED}
-    \`${nickname}\`: hihi`;
+    str += ` rồi cướp sắc, cướp xong giết luôn\n\`${author.userName}\`: ${ICON.EMO_DECEASED}\n\`${nickname}\`: hihi`;
 
     await setDebuff(author.userId, StatusField.DECEASED, true);
   } else {
-    str += ` rồi cướp tiền, cướp sắc, cướp cả mạng
-    \`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}, ${ICON.EMO_DECEASED}
-    \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
+    str += ` rồi cướp tiền, cướp sắc, cướp cả mạng\n\`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}, ${ICON.EMO_DECEASED}\n\`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
 
     await statsInc(author.userId, StatsField.COIN, -amount);
     await statsInc(target.userId, StatsField.COIN, amount);
