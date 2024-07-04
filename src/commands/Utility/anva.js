@@ -35,8 +35,6 @@ module.exports = new ApplicationCommand({
         return; // cooldown not expired, skip execution
       }
 
-      await interaction.deferReply();
-
       let members = await getAllMessage(interaction);
       if (members.length < 1) {
         embed.setDescription(
