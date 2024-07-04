@@ -34,7 +34,6 @@ module.exports = new ApplicationCommand({
     if (interaction.options.getUser("user").id != interaction.user.id) {
       id = interaction.options.getUser("user").id;
     }
-    console.log(id);
     let profile = await fetchUser(id);
     if (profile === null) return;
     await interaction.deferReply({ ephemeral: true });
