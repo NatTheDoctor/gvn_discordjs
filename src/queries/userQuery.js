@@ -60,15 +60,15 @@ const statsInc = async (id, field, amount) => {
     if (doc.exp === exp && doc.coin === coin) return;
     if (doc.exp !== exp) {
       success(
-        `${COLORS.FgGreen}${doc.userName}${COLORS.Reset}: exp ${
-          COLORS.FgBlue
-        }${exp.toFixed(0)}${COLORS.Reset} => ${COLORS.FgRed}${doc.exp.toFixed(
-          0
-        )}${COLORS.Reset}`
+        `${COLORS.FgRed}Updated${COLORS.Reset} ${COLORS.FgGreen}${
+          doc.userName
+        }${COLORS.Reset}: exp ${COLORS.FgBlue}${exp.toFixed(0)}${
+          COLORS.Reset
+        } => ${COLORS.FgRed}${doc.exp.toFixed(0)}${COLORS.Reset}`
       );
     } else if (doc.coin !== coin) {
       success(
-        `${COLORS.FgGreen}${doc.userName}${COLORS.Reset}: coin ${COLORS.FgBlue}${coin}${COLORS.Reset} => ${COLORS.FgRed}${doc.coin}${COLORS.Reset}`
+        `${COLORS.FgRed}Updated${COLORS.Reset} ${COLORS.FgGreen}${doc.userName}${COLORS.Reset}: coin ${COLORS.FgBlue}${coin}${COLORS.Reset} => ${COLORS.FgRed}${doc.coin}${COLORS.Reset}`
       );
     }
   });
@@ -91,7 +91,9 @@ const decreaseDebuffCount = async (id, amount) => {
   }
 
   await user.save().then((doc) => {
-    success(`Decreased ${doc.userName} debuff's count: ${doc.status.count} `);
+    success(
+      `${COLORS.FgRed}Decreased${COLORS.Reset} ${doc.userName} debuff's count: ${doc.status.count} `
+    );
   });
 };
 
@@ -122,7 +124,7 @@ const setDebuff = async (id, field, flag) => {
   user.status[field] = flag;
   user.save().then((doc) => {
     success(
-      `Updated ${doc.userName} ${doc.status[field]}: ${doc.status.count} `
+      `${COLORS.FgRed}Updated${COLORS.Reset} ${doc.userName} ${doc.status[field]}: ${doc.status.count} `
     );
   });
 };
