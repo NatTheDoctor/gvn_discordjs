@@ -124,7 +124,7 @@ class CommandsListener {
         const endTime = performance.now();
         const executionTime = (endTime - startTime).toFixed(1);
         success(
-          `${COLORS.FgRed}#${interaction.channel.name}${COLORS.Reset} ${interaction.user.displayName} ${executionTime} ms`
+          `${COLORS.FgRed}#${interaction.channel.name}${COLORS.Reset} ${interaction.user.displayName} execute ${COLORS.FgBlue}${interaction.commandName}${COLORS.Reset} ${executionTime} ms`
         );
       } catch (err) {
         error(err);
