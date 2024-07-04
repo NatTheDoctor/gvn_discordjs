@@ -222,8 +222,8 @@ const case8 = async (author, target, amount) => {
   return `<@${target.userId}> đánh ngất \`${
     author.userName
   }\`, cướp tiền nhưng làm rớt
-    \`${author.userName}\`: **-${amount - lossCoin}** ${ICON.ICON_COIN}
-    \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN} 
+    \`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}
+    \`${nickname}\`: **+${amount - lossCoin}** ${ICON.ICON_COIN} 
     ${strBaKien}`;
 };
 
