@@ -35,13 +35,13 @@ module.exports = new ApplicationCommand({
         return; // cooldown not expired, skip execution
       }
 
-      await interaction.deferReply();
       let members = await getAllMessage(interaction);
       if (members.length < 1) {
         embed.setDescription(
           `\`#${interaction.channel.name}\`
           Không có ai để ăn vạ.`
         );
+        await interaction.deferReply({ ephemeral: true });
         return await interaction.followUp({ embeds: [embed], ephemeral: true });
       }
       let profile = await fetchUser(interaction.user.id);
@@ -50,6 +50,7 @@ module.exports = new ApplicationCommand({
           `\`#${interaction.channel.name}\`
           Không đủ tiền để ăn vạ`
         );
+        await interaction.deferReply({ ephemeral: true });
         return await interaction.followUp({ embeds: [embed], ephemeral: true });
       }
 
@@ -59,8 +60,10 @@ module.exports = new ApplicationCommand({
           `\`#${interaction.channel.name}\`
           Dính trạng thái, không ăn vạ được nhé`
         );
-        return await interaction.followUp({ embeds: [embed], ephemeral: true });
+        await interaction.deferReply({ ephemeral: true });
+        return await interaction.followUp({ embeds: [embed] });
       }
+      await interaction.deferReply();
       let result = await anvaProcess(profile, members);
 
       await interaction.followUp({ content: result });
