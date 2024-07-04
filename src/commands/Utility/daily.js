@@ -29,6 +29,7 @@ module.exports = new ApplicationCommand({
         ephemeral: true,
       });
     }
+    await interaction.deferReply();
 
     let embed = new EmbedBuilder().setDescription(`Nhận daily hay không?`);
     await interaction.reply({
