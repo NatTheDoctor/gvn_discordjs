@@ -14,7 +14,15 @@ module.exports = new ApplicationCommand({
     name: "ping",
     description: "Replies with Pong!",
     type: 1,
-    options: [],
+    options: [
+      {
+        name: "user",
+        description: "Select one of the options!",
+        type: ApplicationCommandOptionType.User,
+        autocomplete: true,
+        required: true,
+      },
+    ],
   },
   options: {
     cooldown: 5000,
@@ -25,7 +33,7 @@ module.exports = new ApplicationCommand({
    * @param {ChatInputCommandInteraction} interaction
    */
   run: async (client, interaction) => {
-    let mention = interaction.mention;
+    console.log(interaction.options.data);
 
     await interaction.reply({
       content: mention,
