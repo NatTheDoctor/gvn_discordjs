@@ -6,15 +6,7 @@ module.exports = new ApplicationCommand({
     name: "ping",
     description: "Replies with Pong!",
     type: 1,
-    options: [
-      {
-        name: "user",
-        description: "Select one of the options!",
-        type: ApplicationCommandOptionType.User,
-        autocomplete: true,
-        required: true,
-      },
-    ],
+    options: [],
   },
   options: {
     cooldown: 5000,
