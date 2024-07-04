@@ -92,7 +92,9 @@ const decreaseDebuffCount = async (id, amount) => {
   }
 
   await user.save().then((doc) => {
-    update(`${doc.userName} debuff's count: ${count} => ${doc.status.count} `);
+    update(
+      `${doc.userName} debuff's count: ${COLORS.FgBlue}${count}${COLORS.Reset} => ${COLORS.FgRed}${doc.status.count}${COLORS.Reset} `
+    );
   });
 };
 
@@ -112,6 +114,7 @@ const setDebuff = async (id, field, flag) => {
   let user = await fetchUser(id);
   if (user === null) return;
   let amount;
+  let status = user.status[field];
   if (flag == true) {
     if (field === StatusField.DECEASED || field === StatusField.PARANOID) {
       amount = Math.floor(Math.random() * 6) + 2;
@@ -122,15 +125,20 @@ const setDebuff = async (id, field, flag) => {
   }
   user.status[field] = flag;
   user.save().then((doc) => {
-    update(`${doc.userName} ${doc.status[field]}: ${doc.status.count} `);
+    update(
+      `${doc.userName} ${status} => ${doc.status[field]}: ${doc.status.count} `
+    );
   });
 };
 
 const setBuff = async (id, flag) => {
   let user = await fetchUser(id);
   if (user === null) return;
+  let status = user.isBaKien;
   user.isBaKien = flag;
-  user.save();
+  user.save().then((doc) => {
+    update(`${doc.userName} ${status} => ${doc.isBaKien}`);
+  });
 };
 
 const setDaily = async (id, flag) => {
