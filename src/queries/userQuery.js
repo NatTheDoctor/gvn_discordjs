@@ -57,8 +57,9 @@ const statsInc = async (id, field, amount) => {
     user.coin = user.maxCoin;
   }
   await user.save().then((doc) => {
+    if (doc.exp === exp && doc.coin === coin) return;
     success(
-      `${COLORS.FgRed}${doc.userName}${COLORS.Reset}: coin ${
+      `${COLORS.FgGreen}${doc.userName}${COLORS.Reset}: coin ${
         COLORS.FgBlue
       }${coin}${COLORS.Reset} => ${COLORS.FgRed}${doc.coin}${
         COLORS.Reset
