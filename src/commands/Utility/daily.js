@@ -32,7 +32,9 @@ module.exports = new ApplicationCommand({
     await interaction.deferReply({ ephemeral: true });
 
     let embed = new EmbedBuilder().setDescription(
-      `Nhận daily hay không?\n<:notcoin:988449419621990470>: ${profile.coin}\n🧪: ${profile.exp} / ${profile.maxExp}`
+      `Nhận daily hay không?\n<:notcoin:988449419621990470>: ${
+        profile.coin
+      }\n🧪: ${((profile.exp / profile.maxExp) * 100).toFixed(2)}%`
     );
     await interaction.followUp({
       embeds: [embed],
