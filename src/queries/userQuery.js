@@ -1,5 +1,6 @@
 const UserSchema = require("../schema/user");
 const { error, success } = require("../utils/Console");
+const { COLORS } = require("../utils/colors");
 
 const StatsField = {
   EXP: "exp",
@@ -57,9 +58,13 @@ const statsInc = async (id, field, amount) => {
   }
   await user.save().then((doc) => {
     success(
-      `${doc.userName}: coin ${coin} => ${doc.coin}, exp ${exp.toFixed(
-        0
-      )} => ${doc.exp.toFixed(0)}`
+      `${COLORS.FgRed}${doc.userName}${COLORS.Reset}: coin ${
+        COLORS.FgBlue
+      }${coin}${COLORS.Reset} => ${COLORS.FgRed}${doc.coin}${
+        COLORS.Reset
+      }, exp ${COLORS.FgBlue}${exp.toFixed(0)}${COLORS.Reset} => ${
+        COLORS.FgRed
+      }${doc.exp.toFixed(0)}${COLORS.Reset}`
     );
   });
 };
