@@ -35,13 +35,14 @@ module.exports = new ApplicationCommand({
         return; // cooldown not expired, skip execution
       }
 
+      await interaction.deferReply();
       let members = await getAllMessage(interaction);
       if (members.length < 1) {
         embed.setDescription(
           `\`#${interaction.channel.name}\`
           Không có ai để ăn vạ.`
         );
-        return await interaction.reply({ embeds: [embed], ephemeral: true });
+        return await interaction.followUp({ embeds: [embed], ephemeral: true });
       }
       let profile = await fetchUser(interaction.user.id);
       if (profile.coin < 36) {
@@ -49,7 +50,7 @@ module.exports = new ApplicationCommand({
           `\`#${interaction.channel.name}\`
           Không đủ tiền để ăn vạ`
         );
-        return await interaction.reply({ embeds: [embed], ephemeral: true });
+        return await interaction.followUp({ embeds: [embed], ephemeral: true });
       }
 
       const status = await isDebuff(id);
@@ -58,11 +59,11 @@ module.exports = new ApplicationCommand({
           `\`#${interaction.channel.name}\`
           Dính trạng thái, không ăn vạ được nhé`
         );
-        return await interaction.reply({ embeds: [embed], ephemeral: true });
+        return await interaction.followUp({ embeds: [embed], ephemeral: true });
       }
       let result = await anvaProcess(profile, members);
 
-      await interaction.reply({ content: result });
+      await interaction.followUp({ content: result });
 
       await statsInc(id, StatsField.COIN, -36);
       cooldownMap.set(interaction.channelId, now); // update last execution time
