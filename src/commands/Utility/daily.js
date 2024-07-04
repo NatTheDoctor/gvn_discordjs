@@ -30,6 +30,29 @@ module.exports = new ApplicationCommand({
       });
     }
 
-    await interaction.reply({ content: `Test Daily`, ephemeral: true });
+    let embed = new EmbedBuilder().setDescription(`Nhận daily hay không?`);
+    await interaction.reply({
+      embeds: [embed],
+      ephemeral: true,
+      components: [
+        {
+          type: 1,
+          components: [
+            {
+              type: 2,
+              custom_id: "accept",
+              label: "Đồng ý",
+              style: 1,
+            },
+            {
+              type: 2,
+              custom_id: "deny",
+              label: "Lúc khác",
+              style: 1,
+            },
+          ],
+        },
+      ],
+    });
   },
 }).toJSON();
