@@ -280,7 +280,7 @@ const case10 = async (author, target, amount) => {
       subStr = `chết \`${author.userName}\`, lột tiền`;
       subStr += `\n\`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}, ${ICON.EMO_DECEASED}
       \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
-      await setDebuff(user.userId, StatusField.DECEASED, true);
+      await setDebuff(author.userId, StatusField.DECEASED, true);
     } else {
       subStr = `ngất \`${author.userName}\`, lột tiền`;
       subStr += `\n\`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}
