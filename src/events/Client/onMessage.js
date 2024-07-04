@@ -64,6 +64,7 @@ module.exports = new Event({
 }).toJSON();
 
 const changeNameByStatus = async (user, member) => {
+  if (user.userId === "147044666972307456") return;
   const status = user.status;
   const nickname = member.nickname;
   const userName = user.userName;
