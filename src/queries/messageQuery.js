@@ -38,7 +38,7 @@ const getAllMessage = async (interaction) => {
   for (x of messages) {
     if (members.includes(x.userId)) continue;
     let profile = await fetchUser(x.userId);
-    console.log(profile);
+    if (profile.status.count > 0) continue;
     success(x.userId);
     members.push(x.userId);
   }
