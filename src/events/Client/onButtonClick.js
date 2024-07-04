@@ -8,7 +8,7 @@ module.exports = new Event({
     if (interaction.isButton()) {
       let customId = interaction.component.data.custom_id;
       if (customId === "accept") {
-        interaction.editReply("Đã chuyển khoản");
+        interaction.update("Đã chuyển khoản");
       }
     }
   },
