@@ -1,5 +1,5 @@
 const UserSchema = require("../schema/user");
-const { error, success } = require("../utils/Console");
+const { error, success, update } = require("../utils/Console");
 const { COLORS } = require("../utils/colors");
 
 const StatsField = {
@@ -59,16 +59,14 @@ const statsInc = async (id, field, amount) => {
   await user.save().then((doc) => {
     if (doc.exp === exp && doc.coin === coin) return;
     if (doc.exp !== exp) {
-      success(
-        `${COLORS.FgRed}Updated${COLORS.Reset} ${COLORS.FgGreen}${
-          doc.userName
-        }${COLORS.Reset}: exp ${COLORS.FgBlue}${exp.toFixed(0)}${
+      update(
+        `${doc.userName}${COLORS.Reset}: exp ${COLORS.FgBlue}${exp.toFixed(0)}${
           COLORS.Reset
         } => ${COLORS.FgRed}${doc.exp.toFixed(0)}${COLORS.Reset}`
       );
     } else if (doc.coin !== coin) {
-      success(
-        `${COLORS.FgRed}Updated${COLORS.Reset} ${COLORS.FgGreen}${doc.userName}${COLORS.Reset}: coin ${COLORS.FgBlue}${coin}${COLORS.Reset} => ${COLORS.FgRed}${doc.coin}${COLORS.Reset}`
+      update(
+        `${COLORS.FgGreen}${doc.userName}${COLORS.Reset}: coin ${COLORS.FgBlue}${coin}${COLORS.Reset} => ${COLORS.FgRed}${doc.coin}${COLORS.Reset}`
       );
     }
   });
@@ -77,6 +75,8 @@ const statsInc = async (id, field, amount) => {
 const decreaseDebuffCount = async (id, amount) => {
   let user = await fetchUser(id);
   if (user === null) return;
+  let count = user.status.count;
+
   user.status.count += amount;
   if (user.status.count <= 0) {
     if (user.status.isDeceased) {
@@ -91,9 +91,7 @@ const decreaseDebuffCount = async (id, amount) => {
   }
 
   await user.save().then((doc) => {
-    success(
-      `${COLORS.FgRed}Decreased${COLORS.Reset} ${doc.userName} debuff's count: ${doc.status.count} `
-    );
+    update(`${doc.userName} debuff's count: ${count} => ${doc.status.count} `);
   });
 };
 
@@ -123,9 +121,7 @@ const setDebuff = async (id, field, flag) => {
   }
   user.status[field] = flag;
   user.save().then((doc) => {
-    success(
-      `${COLORS.FgRed}Updated${COLORS.Reset} ${doc.userName} ${doc.status[field]}: ${doc.status.count} `
-    );
+    update(`${doc.userName} ${doc.status[field]}: ${doc.status.count} `);
   });
 };
 
