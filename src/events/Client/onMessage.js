@@ -50,7 +50,7 @@ module.exports = new Event({
     await changeNameByStatus(user, member);
     await statsInc(member.id, StatsField.EXP, random);
     await statsInc(member.id, StatsField.COIN, random);
-    addRoleByStatus(member);
+    addRoleByStatus(user, member);
     const endTime = performance.now();
     const executionTime = (endTime - startTime).toFixed(1);
     channel(
@@ -101,10 +101,22 @@ const changeNameByStatus = async (user, member) => {
   }
 };
 
-const addRoleByStatus = async (member) => {
+const addRoleByStatus = async (user, member) => {
   //1242495746952007781
-  if (member.roles.cache.some((role) => role.name === "Bá Kiến")) {
-    console.log("true");
+  if (user.isBaKien) {
+    if (!member.roles.cache.some((role) => role.name === "Bá Kiến")) {
+      var role = member.guild.roles.cache.find(
+        (role) => role.name === "Bá Kiến"
+      );
+      member.roles.add(role);
+    }
+  } else if (!user.isBaKien) {
+    if (member.roles.cache.some((role) => role.name === "Bá Kiến")) {
+      var role = member.guild.roles.cache.find(
+        (role) => role.name === "Bá Kiến"
+      );
+      member.roles.remove(role);
+    }
   }
 };
 
