@@ -90,6 +90,8 @@ const changeNameByStatus = async (user, member) => {
   }
 
   if (nickname !== newNickname) {
-    member.setNickname(newNickname).then(console.log("success"));
+    member
+      .setNickname(newNickname)
+      .then(success(`changeNameByStatus() - Updated name ${userName}`));
   }
 };
