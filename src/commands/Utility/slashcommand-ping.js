@@ -25,8 +25,10 @@ module.exports = new ApplicationCommand({
    * @param {ChatInputCommandInteraction} interaction
    */
   run: async (client, interaction) => {
+    let mention = interaction.mention;
+
     await interaction.reply({
-      content: "**Pong!** " + client.ws.ping + "ms",
+      content: mention,
     });
   },
 }).toJSON();
