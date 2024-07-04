@@ -58,15 +58,19 @@ const statsInc = async (id, field, amount) => {
   }
   await user.save().then((doc) => {
     if (doc.exp === exp && doc.coin === coin) return;
-    success(
-      `${COLORS.FgGreen}${doc.userName}${COLORS.Reset}: coin ${
-        COLORS.FgBlue
-      }${coin}${COLORS.Reset} => ${COLORS.FgRed}${doc.coin}${
-        COLORS.Reset
-      }, exp ${COLORS.FgBlue}${exp.toFixed(0)}${COLORS.Reset} => ${
-        COLORS.FgRed
-      }${doc.exp.toFixed(0)}${COLORS.Reset}`
-    );
+    if (doc.exp !== exp) {
+      success(
+        `${COLORS.FgGreen}${doc.userName}${COLORS.Reset}: exp ${
+          COLORS.FgBlue
+        }${exp.toFixed(0)}${COLORS.Reset} => ${COLORS.FgRed}${doc.exp.toFixed(
+          0
+        )}${COLORS.Reset}`
+      );
+    } else if (doc.coin !== coin) {
+      success(
+        `${COLORS.FgGreen}${doc.userName}${COLORS.Reset}: coin ${COLORS.FgBlue}${coin}${COLORS.Reset} => ${COLORS.FgRed}${doc.coin}${COLORS.Reset}`
+      );
+    }
   });
 };
 
