@@ -1,4 +1,8 @@
-const { ChatInputCommandInteraction, EmbedBuilder } = require("discord.js");
+const {
+  ChatInputCommandInteraction,
+  EmbedBuilder,
+  ApplicationCommandOptionType,
+} = require("discord.js");
 const DiscordBot = require("../../client/DiscordBot");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
 const { getAllMessage } = require("../../queries/messageQuery");
@@ -11,7 +15,15 @@ module.exports = new ApplicationCommand({
     name: "profile",
     description: "Mở profile",
     type: 1,
-    options: [],
+    options: [
+      {
+        name: "user",
+        description: "Select one of the options!",
+        type: ApplicationCommandOptionType.User,
+        autocomplete: true,
+        required: false,
+      },
+    ],
   },
   options: {
     cooldown: 5000,
@@ -19,7 +31,10 @@ module.exports = new ApplicationCommand({
   run: async (client, interaction) => {
     let embed = new EmbedBuilder();
     let id = interaction.user.id;
-    let profile = await fetchUser(interaction.user.id);
+    if (interaction.options.getUser("user").id != interaction.user.id) {
+      id = interaction.options.getUser("user").id;
+    }
+    let profile = await fetchUser(id);
     if (profile === null) return;
     await interaction.deferReply({ ephemeral: true });
     embed.setDescription(`
