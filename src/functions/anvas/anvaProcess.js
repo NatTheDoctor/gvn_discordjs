@@ -57,10 +57,4 @@ const anvaProcess = async (author, members) => {
   }
   return str;
 };
-const exchangeBaKien = async (hadBaKien, notHaveBaKien) => {
-  if (hadBaKien.isBaKien) {
-    await setBuff(hadBaKien.userId, false);
-    await setBuff(notHaveBaKien.userId, false);
-  }
-};
-module.exports = { anvaProcess, exchangeBaKien };
+module.exports = { anvaProcess };

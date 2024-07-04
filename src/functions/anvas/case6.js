@@ -1,5 +1,6 @@
 const { setDebuff, StatusField } = require("../../queries/userQuery");
-const { exchangeBaKien } = require("./anvaProcess");
+const { exchangeBaKien } = require("./exchangeRole");
+
 const { ICON } = require("./ICON");
 const case6 = async (author, target) => {
   let nickname =

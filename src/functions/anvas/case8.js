@@ -1,6 +1,8 @@
 const { StatsField, statsInc } = require("../../queries/userQuery");
 const { ICON } = require("./ICON");
 
+const { exchangeBaKien } = require("./exchangeRole");
+
 const case8 = async (author, target, amount) => {
   let nickname =
     target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
