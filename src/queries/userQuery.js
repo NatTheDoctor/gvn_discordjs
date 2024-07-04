@@ -42,6 +42,7 @@ const fetchOrCreateUser = async (member) => {
 };
 
 const statsInc = async (id, field, amount) => {
+  if (amount === 0) return;
   let user = await fetchUser(id);
   if (user === null) return;
   let exp = user.exp;
