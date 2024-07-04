@@ -100,3 +100,5 @@ const changeNameByStatus = async (user, member) => {
       .then(success(`changeNameByStatus() - Updated name ${userName}`));
   }
 };
+
+const reactToMessage = (message) => {};

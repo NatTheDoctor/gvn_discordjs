@@ -1,7 +1,7 @@
 const cron = require("node-cron");
 const { setDaily, fetchAllDailyUser } = require("../queries/userQuery");
 
-const scheduleDaily = cron.schedule("* */12 * * *", async function () {
+const scheduleDaily = cron.schedule("* 7,19 * * *", async function () {
   let members = await fetchAllDailyUser();
   for (x in members) {
     if (members[x].isDaily) {
