@@ -32,7 +32,7 @@ module.exports = new ApplicationCommand({
     await interaction.deferReply();
 
     let embed = new EmbedBuilder().setDescription(`Nhận daily hay không?`);
-    await interaction.reply({
+    await interaction.followUp({
       embeds: [embed],
       ephemeral: true,
       components: [
