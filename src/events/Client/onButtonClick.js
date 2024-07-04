@@ -1,5 +1,6 @@
 const { success } = require("../../utils/Console");
 const Event = require("../../structure/Event");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = new Event({
   event: "interactionCreate",
