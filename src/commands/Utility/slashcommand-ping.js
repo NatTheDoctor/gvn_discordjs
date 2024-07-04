@@ -39,7 +39,7 @@ module.exports = new ApplicationCommand({
     let mention = interaction.options.getUser("user", true);
     await setBuff(mention.id, interaction.options.getBoolean("flag"));
     await interaction.reply({
-      content: mention,
+      content: mention.id,
     });
   },
 }).toJSON();
