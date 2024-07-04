@@ -43,6 +43,9 @@ const fetchOrCreateUser = async (member) => {
 const statsInc = async (id, field, amount) => {
   let user = await fetchUser(id);
   if (user === null) return;
+  let exp = user.exp;
+  let coin = user.coin;
+
   user[field] += amount;
   if (field === StatsField.EXP && user.exp > user.maxExp) {
     const levelsGained = Math.floor(user.exp / user.maxExp);
@@ -52,7 +55,13 @@ const statsInc = async (id, field, amount) => {
   } else if (field === StatsField.COIN && user.coin > user.maxCoin) {
     user.coin = user.maxCoin;
   }
-  await user.save();
+  await user.save().then((doc) => {
+    success(
+      `${doc.userName}: coin ${coin} => ${doc.coin}, exp ${exp.toFixed(
+        0
+      )} => ${doc.exp.toFixed(0)}`
+    );
+  });
 };
 
 const decreaseDebuffCount = async (id, amount) => {

@@ -12,6 +12,7 @@ const {
 } = require("../../queries/userQuery");
 const { ICON } = require("../../functions/anvas/anvaProcess");
 const { scheduleDaily } = require("../../utils/scheduleDaily");
+const { COLORS } = require("../../utils/colors");
 
 const random = Math.floor(Math.random() * 2) + 1;
 const cooldownMap = new Map();
@@ -57,9 +58,7 @@ module.exports = new Event({
     const endTime = performance.now();
     const executionTime = (endTime - startTime).toFixed(1);
     success(
-      `#${message.channel.name} ${user.userName} (${status}): coin ${coin} => ${
-        user.coin
-      }, exp ${exp.toFixed(0)} => ${user.exp.toFixed(0)} ${executionTime} ms`
+      `${COLORS.FgRed}#${message.channel.name}${COLORS.Reset} ${user.userName} (${status}): ${executionTime} ms`
     );
   },
 }).toJSON();
