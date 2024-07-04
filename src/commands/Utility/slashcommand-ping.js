@@ -1,4 +1,7 @@
-const { ChatInputCommandInteraction } = require("discord.js");
+const {
+  ChatInputCommandInteraction,
+  ApplicationCommandOptionType,
+} = require("discord.js");
 const DiscordBot = require("../../client/DiscordBot");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
 module.exports = new ApplicationCommand({
@@ -10,7 +13,8 @@ module.exports = new ApplicationCommand({
       {
         name: "user",
         description: "Select one of the options!",
-        type: ApplicationCommandOptionType.String,
+        type: ApplicationCommandOptionType.User,
+        autocomplete: true,
         required: true,
       },
     ],
