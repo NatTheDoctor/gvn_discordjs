@@ -25,7 +25,7 @@ module.exports = new ApplicationCommand({
    * @param {ChatInputCommandInteraction} interaction
    */
   run: async (client, interaction) => {
-    console.log(interaction.options.data);
+    console.log(interaction.options.getUser("user", true));
 
     await interaction.reply({
       content: mention,
