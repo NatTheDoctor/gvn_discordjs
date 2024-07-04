@@ -6,7 +6,7 @@ module.exports = new Event({
   once: false,
   run: (__client__, interaction) => {
     if (interaction.isButton()) {
-      console.log(interaction.component);
+      console.log(interaction.component.data.custom_id);
     }
   },
 }).toJSON();
