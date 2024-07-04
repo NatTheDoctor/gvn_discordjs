@@ -60,13 +60,13 @@ const statsInc = async (id, field, amount) => {
     if (doc.exp === exp && doc.coin === coin) return;
     if (doc.exp !== exp) {
       update(
-        `${doc.userName}${COLORS.Reset}: exp ${COLORS.FgBlue}${exp.toFixed(0)}${
+        `${doc.userName}: exp ${COLORS.FgBlue}${exp.toFixed(0)}${
           COLORS.Reset
         } => ${COLORS.FgRed}${doc.exp.toFixed(0)}${COLORS.Reset}`
       );
     } else if (doc.coin !== coin) {
       update(
-        `${COLORS.FgGreen}${doc.userName}${COLORS.Reset}: coin ${COLORS.FgBlue}${coin}${COLORS.Reset} => ${COLORS.FgRed}${doc.coin}${COLORS.Reset}`
+        `${doc.userName}: coin ${COLORS.FgBlue}${coin}${COLORS.Reset} => ${COLORS.FgRed}${doc.coin}${COLORS.Reset}`
       );
     }
   });
