@@ -28,6 +28,6 @@ module.exports = new ApplicationCommand({
       🧪: ${((profile.exp / profile.maxExp) * 100).toFixed(2)}%
       Debuff: ${profile.status.count}
       `);
-    await interaction.update({ embeds: [embed] });
+    await interaction.followUp({ embeds: [embed] });
   },
 }).toJSON();
