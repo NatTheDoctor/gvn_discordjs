@@ -12,6 +12,7 @@ const {
 } = require("../../queries/userQuery");
 const { scheduleDaily } = require("../../utils/scheduleDaily");
 const { COLORS } = require("../../utils/colors");
+const { ICON } = require("../../functions/anvas/ICON");
 
 const random = Math.floor(Math.random() * 2) + 1;
 const cooldownMap = new Map();
