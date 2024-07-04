@@ -39,7 +39,6 @@ const getAllMessage = async (interaction) => {
     if (members.includes(x.userId)) continue;
     let profile = await fetchUser(x.userId);
     if (profile.status.count > 0) continue;
-    success(x.userId);
     members.push(x.userId);
   }
   members = shuffleArray(members);
