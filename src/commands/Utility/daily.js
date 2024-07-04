@@ -29,7 +29,7 @@ module.exports = new ApplicationCommand({
         ephemeral: true,
       });
     }
-    await interaction.deferReply();
+    await interaction.deferReply({ ephemeral: true });
 
     let embed = new EmbedBuilder().setDescription(`Nhận daily hay không?`);
     await interaction.followUp({
