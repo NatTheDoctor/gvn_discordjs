@@ -103,8 +103,7 @@ const changeNameByStatus = async (user, member) => {
 
 const addRoleByStatus = async (member) => {
   //1242495746952007781
-  console.log(member.roles.cache);
-  if (member.roles.cache.has((r) => r.id === 1242495746952007781)) {
+  if (member.roles.cache.has("1242495746952007781")) {
     console.log("true");
   }
 };
