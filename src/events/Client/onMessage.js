@@ -31,6 +31,9 @@ module.exports = new Event({
     if (user === null) {
       return await fetchOrCreateUser(member);
     }
+    let coin = user.coin;
+    let exp = user.exp;
+
     await fetchOrCreateMessage(message, user);
     var status = await isDebuff(id);
     if (status) {
@@ -54,7 +57,9 @@ module.exports = new Event({
     const endTime = performance.now();
     const executionTime = (endTime - startTime).toFixed(1);
     success(
-      `#${message.channel.name} ${user.userName} (${status}): coin ${user.coin}, exp ${user.exp} ${executionTime} ms`
+      `#${message.channel.name} ${user.userName} (${status}): coin ${coin} => ${
+        user.coin
+      }, exp ${exp.toFixed(0)} => ${user.exp.toFixed(0)} ${executionTime} ms`
     );
   },
 }).toJSON();
