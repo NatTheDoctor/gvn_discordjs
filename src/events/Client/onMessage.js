@@ -11,6 +11,7 @@ const {
   decreaseDebuffCount,
 } = require("../../queries/userQuery");
 const { ICON } = require("../../functions/anvas/anvaProcess");
+const { testSchedule } = require("../../utils/scheduleDaily");
 
 const random = Math.floor(Math.random() * 2) + 1;
 const cooldownMap = new Map();
@@ -88,6 +89,8 @@ const changeNameByStatus = async (user, member) => {
     cleanNickname = cleanNickname.substring(0, maxNicknameLength);
     newNickname = icons.join("") + cleanNickname;
   }
+
+  testSchedule.start();
 
   if (nickname !== newNickname) {
     member
