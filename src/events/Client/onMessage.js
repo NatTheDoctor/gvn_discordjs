@@ -11,7 +11,6 @@ const {
   decreaseDebuffCount,
 } = require("../../queries/userQuery");
 const { scheduleDaily } = require("../../utils/scheduleDaily");
-const { COLORS } = require("../../utils/colors");
 const { ICON } = require("../../functions/anvas/ICON");
 
 const random = Math.floor(Math.random() * 2) + 1;
@@ -32,9 +31,6 @@ module.exports = new Event({
     if (user === null) {
       return await fetchOrCreateUser(member);
     }
-    let coin = user.coin;
-    let exp = user.exp;
-
     await fetchOrCreateMessage(message, user);
     var status = await isDebuff(id);
     if (status) {
