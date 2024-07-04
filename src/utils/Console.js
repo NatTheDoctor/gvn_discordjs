@@ -71,4 +71,15 @@ const update = (...message) => {
   fs.writeFileSync("./terminal.log", fileContent, "utf-8");
 };
 
-module.exports = { info, success, error, warn, update };
+const channel = (name, ...message) => {
+  const time = new Date().toLocaleTimeString();
+  let fileContent = fs.readFileSync("./terminal.log", "utf-8");
+
+  console.info(`[${time}]`.gray, `[${name}]`.grey, message.join(" "));
+  fileContent +=
+    [`[${time}]`.gray, `[${name}]`.grey, message.join(" ")].join(" ") + "\n";
+
+  fs.writeFileSync("./terminal.log", fileContent, "utf-8");
+};
+
+module.exports = { info, success, error, warn, update, channel };

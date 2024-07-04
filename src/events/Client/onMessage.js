@@ -1,4 +1,4 @@
-const { success } = require("../../utils/Console");
+const { success, channel } = require("../../utils/Console");
 const Event = require("../../structure/Event");
 const { fetchOrCreateMessage } = require("../../queries/messageQuery");
 const {
@@ -57,8 +57,9 @@ module.exports = new Event({
 
     const endTime = performance.now();
     const executionTime = (endTime - startTime).toFixed(1);
-    success(
-      `${COLORS.FgRed}#${message.channel.name}${COLORS.Reset} ${user.userName} (${status}): ${executionTime} ms`
+    channel(
+      `#${message.channel.name}`,
+      `${user.userName} (${status}): ${executionTime} ms`
     );
   },
 }).toJSON();
