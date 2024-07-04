@@ -50,7 +50,7 @@ module.exports = new Event({
     await changeNameByStatus(user, member);
     await statsInc(member.id, StatsField.EXP, random);
     await statsInc(member.id, StatsField.COIN, random);
-
+    addRoleByStatus(member);
     const endTime = performance.now();
     const executionTime = (endTime - startTime).toFixed(1);
     channel(
@@ -98,6 +98,13 @@ const changeNameByStatus = async (user, member) => {
     member
       .setNickname(newNickname)
       .then(success(`changeNameByStatus() - Updated name ${userName}`));
+  }
+};
+
+const addRoleByStatus = async (member) => {
+  //1242495746952007781
+  if (member.roles.cache.has((r) => r.id === 1242495746952007781)) {
+    console.log("true");
   }
 };
 
