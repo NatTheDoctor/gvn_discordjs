@@ -44,21 +44,19 @@ module.exports = new ApplicationCommand({
       let strFlag = "";
 
       let members = await getAllMessage(interaction);
+      await interaction.deferReply();
       if (members.length < 1) {
-        await interaction.deferReply({ ephemeral: true });
         flag = FLAG.inefficientPlayer;
         strFlag = `\`#${interaction.channel.name}\`\nKhông có ai để ăn vạ.`;
       }
       let profile = await fetchUser(interaction.user.id);
       if (profile.coin < 36) {
-        await interaction.deferReply({ ephemeral: true });
         flag = FLAG.inefficientCoin;
         strFlag = `\`#${interaction.channel.name}\`\nKhông đủ tiền để ăn vạ`;
       }
 
       const status = await isDebuff(id);
       if (status) {
-        await interaction.deferReply({ ephemeral: true });
         flag = FLAG.inefficientCoin;
         strFlag = `\`#${interaction.channel.name}\`\nDính trạng thái, không ăn vạ được nhé`;
       }
@@ -72,7 +70,6 @@ module.exports = new ApplicationCommand({
 
         return interaction.followUp({ embeds: [embed] });
       }
-      await interaction.deferReply();
       let result = await anvaProcess(profile, members);
 
       await interaction.followUp({ content: result });
