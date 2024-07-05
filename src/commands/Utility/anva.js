@@ -13,6 +13,11 @@ const { success, error } = require("../../utils/Console");
 
 const cooldownMap = new Map();
 
+const FLAG = {
+  inefficientCoin: "coin",
+  inefficientPlayer: "player",
+  inStatus: "status",
+};
 module.exports = new ApplicationCommand({
   command: {
     name: "anva",
@@ -24,50 +29,58 @@ module.exports = new ApplicationCommand({
     cooldown: 30000,
   },
   run: async (client, interaction) => {
-    let embed = new EmbedBuilder();
-    let id = interaction.user.id;
+    try {
+      let embed = new EmbedBuilder();
+      let id = interaction.user.id;
 
-    const now = Date.now();
-    const cooldownTime = 15 * 1000; // 1 minute
-    const lastExecutionTime = cooldownMap.get(interaction.channelId);
-    if (lastExecutionTime && now - lastExecutionTime < cooldownTime) {
-      return; // cooldown not expired, skip execution
+      const now = Date.now();
+      const cooldownTime = 15 * 1000; // 1 minute
+      const lastExecutionTime = cooldownMap.get(interaction.channelId);
+      if (lastExecutionTime && now - lastExecutionTime < cooldownTime) {
+        return; // cooldown not expired, skip execution
+      }
+
+      let flag = false;
+      let strFlag = "";
+
+      let members = await getAllMessage(interaction);
+      if (members.length < 1) {
+        await interaction.deferReply({ ephemeral: true });
+        flag = FLAG.inefficientPlayer;
+        strFlag = `\`#${interaction.channel.name}\`\nKhông có ai để ăn vạ.`;
+      }
+      let profile = await fetchUser(interaction.user.id);
+      if (profile.coin < 36) {
+        await interaction.deferReply({ ephemeral: true });
+        flag = FLAG.inefficientCoin;
+        strFlag = `\`#${interaction.channel.name}\`\nKhông đủ tiền để ăn vạ`;
+      }
+
+      const status = await isDebuff(id);
+      if (status) {
+        await interaction.deferReply({ ephemeral: true });
+        flag = FLAG.inefficientCoin;
+        strFlag = `\`#${interaction.channel.name}\`\nDính trạng thái, không ăn vạ được nhé`;
+      }
+
+      if (
+        flag == FLAG.inStatus ||
+        flag == FLAG.inefficientCoin ||
+        flag == FLAG.inefficientPlayer
+      ) {
+        embed.setDescription(strFlag);
+
+        return interaction.followUp({ embeds: [embed] });
+      }
+      await interaction.deferReply();
+      let result = await anvaProcess(profile, members);
+
+      await interaction.followUp({ content: result });
+
+      await statsInc(id, StatsField.COIN, -36);
+      cooldownMap.set(interaction.channelId, now);
+    } catch (err) {
+      error(err);
     }
-
-    let members = await getAllMessage(interaction);
-    if (members.length < 1) {
-      embed.setDescription(
-        `\`#${interaction.channel.name}\`
-          Không có ai để ăn vạ.`
-      );
-      await interaction.deferReply({ ephemeral: true });
-      return await interaction.followUp({ embeds: [embed], ephemeral: true });
-    }
-    let profile = await fetchUser(interaction.user.id);
-    if (profile.coin < 36) {
-      embed.setDescription(
-        `\`#${interaction.channel.name}\`
-          Không đủ tiền để ăn vạ`
-      );
-      await interaction.deferReply({ ephemeral: true });
-      return await interaction.followUp({ embeds: [embed], ephemeral: true });
-    }
-
-    const status = await isDebuff(id);
-    if (status) {
-      embed.setDescription(
-        `\`#${interaction.channel.name}\`
-          Dính trạng thái, không ăn vạ được nhé`
-      );
-      await interaction.deferReply({ ephemeral: true });
-      return await interaction.followUp({ embeds: [embed] });
-    }
-    await interaction.deferReply();
-    let result = await anvaProcess(profile, members);
-
-    await interaction.followUp({ content: result });
-
-    await statsInc(id, StatsField.COIN, -36);
-    cooldownMap.set(interaction.channelId, now);
   },
 }).toJSON();

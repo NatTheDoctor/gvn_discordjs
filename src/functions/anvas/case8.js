@@ -8,6 +8,7 @@ const case8 = async (author, target, amount) => {
     target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
 
   let lossCoin = Math.floor(Math.random() * amount) + 1;
+  if (amount <= 0) lossCoin = 0;
   await statsInc(author.userId, StatsField.COIN, -amount);
   await statsInc(target.userId, StatsField.COIN, amount - lossCoin);
 
