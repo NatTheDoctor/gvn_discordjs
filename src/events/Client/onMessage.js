@@ -12,6 +12,7 @@ const {
 } = require("../../queries/userQuery");
 const { scheduleDaily } = require("../../utils/scheduleDaily");
 const { ICON } = require("../../functions/anvas/ICON");
+const { COLORS } = require("../../utils/colors");
 
 const random = Math.floor(Math.random() * 2) + 1;
 const cooldownMap = new Map();
@@ -109,6 +110,7 @@ const addRoleByStatus = async (user, member) => {
         (role) => role.name === "Bá Kiến"
       );
       member.roles.add(role);
+      update(`${user.userName}: ${COLORS.BgBlue}Bá Kiến${COLORS.Reset}`);
     }
   } else if (!user.isBaKien) {
     if (member.roles.cache.some((role) => role.name === "Bá Kiến")) {
@@ -116,6 +118,9 @@ const addRoleByStatus = async (user, member) => {
         (role) => role.name === "Bá Kiến"
       );
       member.roles.remove(role);
+      update(
+        `${user.userName}: ${COLORS.BgBlue}${COLORS.Underscore}Bá Kiến${COLORS.Reset}`
+      );
     }
   }
 };
