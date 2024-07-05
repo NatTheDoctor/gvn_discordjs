@@ -7,20 +7,26 @@ const case6 = async (author, target) => {
     target.userName !== null ? `\`${target.userName}\`` : `<@${target.userId}>`;
   let chance = Math.floor(Math.random() * 100);
   if (chance <= 33) {
-    str = `vào hòm
-    \`${author.userName}\`: hihi
-    \`${nickname}\`: ${ICON.EMO_DECEASED}`;
-    await setDebuff(target.userId, StatusField.DECEASED, true);
+    let debuffAmount = await setDebuff(
+      target.userId,
+      StatusField.DECEASED,
+      true
+    );
+    str = `vào hòm\n\`${author.userName}\`: hihi\n\`${nickname}\`: **+${debuffAmount}** ${ICON.EMO_DECEASED}`;
   } else if (chance <= 67) {
-    str = `vào trại thương điên
-    \`${author.userName}\`: hihi
-    \`${nickname}\`: ${ICON.EMO_PARANOID}`;
-    await setDebuff(target.userId, StatusField.PARANOID, true);
+    let debuffAmount = await setDebuff(
+      target.userId,
+      StatusField.PARANOID,
+      true
+    );
+    str = `vào trại thương điên\n\`${author.userName}\`: hihi\n\`${nickname}\`: **+${debuffAmount}** ${ICON.EMO_PARANOID}`;
   } else {
-    str = `vào tù"
-    \`${author.userName}\`: hihi
-    \`${nickname}\`: ${ICON.EMO_CAPTIVE}`;
-    await setDebuff(target.userId, StatusField.CAPTIVE, true);
+    let debuffAmount = await setDebuff(
+      target.userId,
+      StatusField.CAPTIVE,
+      true
+    );
+    str = `vào tù"\n\`${author.userName}\`: hihi\n\`${nickname}\`: **+${debuffAmount}** ${ICON.EMO_CAPTIVE}`;
   }
   let strBaKien = "";
   if (author.isBaKien) {

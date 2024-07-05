@@ -14,20 +14,22 @@ const case10 = async (author, target, amount) => {
   if (chance < 33) {
     chance = Math.floor(Math.random() * 100);
     if (chance < 50) {
-      str = `trượt chân té chết
-    \`${author.userName}\`: hihi
-    \`${nickname}\`: ${ICON.EMO_DECEASED}`;
-      await setDebuff(target.userId, StatusField.DECEASED, true);
+      let debuffAmount = await setDebuff(
+        target.userId,
+        StatusField.DECEASED,
+        true
+      );
+      str = `trượt chân té chết\n\`${author.userName}\`: hihi\n${nickname}: **+${debuffAmount}** ${ICON.EMO_DECEASED}`;
     } else {
-      str = `trượt chân té không chết nhưng u não
-    \`${author.userName}\`: hihi
-    \`${nickname}\`: ${ICON.EMO_PARANOID}`;
-      await setDebuff(target.userId, StatusField.PARANOID, true);
+      let debuffAmount = await setDebuff(
+        target.userId,
+        StatusField.PARANOID,
+        true
+      );
+      str = `trượt chân té không chết nhưng u não\n\`${author.userName}\`: hihi\n\`${nickname}\`: **+${debuffAmount}** ${ICON.EMO_PARANOID}`;
     }
   } else if (chance < 67) {
-    str = `bị \`${author.userName}\` túm lại thông toác đuýt, bị cướp tiền viện phí, ném dưới gầm cầu Vũ Đại
-    \`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}
-    \`${nickname}\`: **-${amount}** ${ICON.ICON_COIN}`;
+    str = `bị \`${author.userName}\` túm lại thông toác đuýt, bị cướp tiền viện phí, ném dưới gầm cầu Vũ Đại\n\`${author.userName}\`: **+${amount}** ${ICON.ICON_COIN}\n\`${nickname}\`: **-${amount}** ${ICON.ICON_COIN}`;
     await statsInc(author.userId, StatsField.COIN, amount);
     await statsInc(target.userId, StatsField.COIN, -amount);
 
@@ -37,20 +39,17 @@ const case10 = async (author, target, amount) => {
     let subStr = "";
     chance = Math.floor(Math.random() * 100);
     if (chance <= 50) {
-      subStr = `chết \`${author.userName}\`, lột tiền`;
-      subStr += `\n\`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}, ${ICON.EMO_DECEASED}
-      \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
-      await setDebuff(author.userId, StatusField.DECEASED, true);
+      let debuffAmount = await setDebuff(
+        author.userId,
+        StatusField.DECEASED,
+        true
+      );
+      subStr = `chết \`${author.userName}\`, nạn nhân mất tiền ma chay mua hòm\n\`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}, **+${debuffAmount}** ${ICON.EMO_DECEASED}`;
     } else {
-      subStr = `ngất \`${author.userName}\`, lột tiền`;
-      subStr += `\n\`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}
-      \`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
+      subStr = `ngất \`${author.userName}\`, nạn nhân mất tiền viện\n\`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}`;
     }
     await statsInc(author.userId, StatsField.COIN, -amount);
-    await statsInc(target.userId, StatsField.COIN, amount);
-
     await statsInc(author.userId, StatsField.EXP, -amount);
-    await statsInc(target.userId, StatsField.EXP, amount);
 
     str = `nhặt được bí kíp, bùng nổ bách vạn thần quyền, đấm ${subStr}`;
   }

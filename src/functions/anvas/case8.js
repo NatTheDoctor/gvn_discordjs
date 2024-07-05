@@ -22,10 +22,9 @@ const case8 = async (author, target, amount) => {
 
   return `<@${target.userId}> đánh ngất \`${
     author.userName
-  }\`, cướp tiền nhưng làm rớt
-    \`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}
-    \`${nickname}\`: **+${amount - lossCoin}** ${ICON.ICON_COIN} 
-    ${strBaKien}`;
+  }\`, cướp tiền nhưng làm rớt\n\`${author.userName}\`: **-${amount}** ${
+    ICON.ICON_COIN
+  }\n\`${nickname}\`: **+${amount - lossCoin}** ${ICON.ICON_COIN}${strBaKien}`;
 };
 
 module.exports = { case8 };
