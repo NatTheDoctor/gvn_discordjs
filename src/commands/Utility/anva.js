@@ -58,7 +58,9 @@ module.exports = new ApplicationCommand({
         strFlag = `\`#${interaction.channel.name}\`\nDính trạng thái, không ăn vạ được nhé`;
         embed.setDescription(strFlag);
 
-        return interaction.followUp({ embeds: [embed] });
+        return interaction.followUp({ embeds: [embed] }).then((message) => {
+          message.delete({ timeout: 5000 });
+        });
       }
       let result = await anvaProcess(profile, members);
 
