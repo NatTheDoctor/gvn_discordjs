@@ -15,15 +15,7 @@ module.exports = new ApplicationCommand({
     name: "profile",
     description: "Mở profile",
     type: 1,
-    options: [
-      {
-        name: "user",
-        description: "Select one of the options!",
-        type: ApplicationCommandOptionType.User,
-        autocomplete: true,
-        required: false,
-      },
-    ],
+    options: [],
   },
   options: {
     cooldown: 5000,
@@ -31,9 +23,6 @@ module.exports = new ApplicationCommand({
   run: async (client, interaction) => {
     let embed = new EmbedBuilder();
     let id = interaction.user.id;
-    if (interaction.options.getUser("user").id != interaction.user.id) {
-      id = interaction.options.getUser("user").id;
-    }
     let profile = await fetchUser(id);
     if (profile === null) return;
     await interaction.deferReply({ ephemeral: true });
