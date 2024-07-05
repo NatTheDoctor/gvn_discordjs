@@ -148,8 +148,11 @@ const setBuff = async (id, flag) => {
 const setDaily = async (id, flag) => {
   let user = await fetchUser(id);
   if (user === null) return;
+  let status = user.isDaily;
   user.isDaily = flag;
-  user.save();
+  user.save().then((doc) => {
+    update(`${doc.userName} ${status} => ${doc.isDaily}`);
+  });
 };
 
 const removeAllUsers = async () => {
