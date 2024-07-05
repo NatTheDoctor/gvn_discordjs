@@ -4,28 +4,18 @@ const {
 } = require("discord.js");
 const DiscordBot = require("../../client/DiscordBot");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
-const { fetchUser, setDebuff, setBuff } = require("../../queries/userQuery");
+const {
+  fetchUser,
+  setDebuff,
+  setBuff,
+  fetchBaKien,
+} = require("../../queries/userQuery");
 module.exports = new ApplicationCommand({
   command: {
     name: "ping",
     description: "Replies with Pong!",
     type: 1,
-    options: [
-      {
-        name: "user",
-        description: "Select one of the options!",
-        type: ApplicationCommandOptionType.User,
-        autocomplete: true,
-        required: true,
-      },
-      {
-        name: "flag",
-        description: "Select one of the options!",
-        type: ApplicationCommandOptionType.Boolean,
-        autocomplete: true,
-        required: true,
-      },
-    ],
+    options: [],
   },
   options: {
     cooldown: 5000,
@@ -36,10 +26,9 @@ module.exports = new ApplicationCommand({
    * @param {ChatInputCommandInteraction} interaction
    */
   run: async (client, interaction) => {
-    let mention = interaction.options.getUser("user", true);
-    await setBuff(mention.id, interaction.options.getBoolean("flag"));
+    let bakien = await fetchBaKien(interaction.user.id);
     await interaction.reply({
-      content: mention.id,
+      content: bakien.userName,
     });
   },
 }).toJSON();

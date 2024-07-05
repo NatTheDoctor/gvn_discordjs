@@ -21,6 +21,9 @@ const StatusField = {
 const fetchUser = async (userId) => {
   return await UserSchema.findOne({ userId: userId });
 };
+const fetchBaKien = async (userId) => {
+  return await UserSchema.findOne({ isBaKien: true });
+};
 
 const fetchAllUsers = async (userId) => {
   return await UserSchema.find();
@@ -156,6 +159,7 @@ module.exports = {
   StatsField,
   StatusField,
   fetchUser,
+  fetchBaKien,
   fetchAllUsers,
   fetchAllDailyUser,
   fetchOrCreateUser,
