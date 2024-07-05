@@ -21,19 +21,25 @@ const case11 = async (author, target, amount) => {
     await statsInc(author.userId, StatsField.EXP, -amount);
     await statsInc(target.userId, StatsField.EXP, amount);
   } else if (chance < 55) {
-    str += ` rồi cướp sắc, cướp xong giết luôn\n\`${author.userName}\`: ${ICON.EMO_DECEASED}\n\`${nickname}\`: hihi`;
-
-    await setDebuff(author.userId, StatusField.DECEASED, true);
+    let debuffAmount = await setDebuff(
+      author.userId,
+      StatusField.DECEASED,
+      true
+    );
+    str += ` rồi cướp sắc, cướp xong giết luôn\n\`${author.userName}\`: **+${debuffAmount}** ${ICON.EMO_DECEASED}\n\`${nickname}\`: hihi`;
   } else {
-    str += ` rồi cướp tiền, cướp sắc, cướp cả mạng\n\`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}, ${ICON.EMO_DECEASED}\n\`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
+    let debuffAmount = await setDebuff(
+      author.userId,
+      StatusField.DECEASED,
+      true
+    );
+    str += ` rồi cướp tiền, cướp sắc, cướp cả mạng\n\`${author.userName}\`: **-${amount}** ${ICON.ICON_COIN}, **+${debuffAmount}** ${ICON.EMO_DECEASED}\n\`${nickname}\`: **+${amount}** ${ICON.ICON_COIN}`;
 
     await statsInc(author.userId, StatsField.COIN, -amount);
     await statsInc(target.userId, StatsField.COIN, amount);
 
     await statsInc(author.userId, StatsField.EXP, -amount);
     await statsInc(target.userId, StatsField.EXP, amount);
-
-    await setDebuff(author.userId, StatusField.DECEASED, true);
   }
   let strBaKien = "";
   if (author.isBaKien) {
