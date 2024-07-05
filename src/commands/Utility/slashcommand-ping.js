@@ -8,14 +8,29 @@ const {
   fetchUser,
   setDebuff,
   setBuff,
-  fetchBaKien,
+  setDaily,
 } = require("../../queries/userQuery");
 module.exports = new ApplicationCommand({
   command: {
     name: "ping",
     description: "Replies with Pong!",
     type: 1,
-    options: [],
+    options: [
+      {
+        name: "user",
+        description: "Select one of the options!",
+        type: ApplicationCommandOptionType.User,
+        autocomplete: true,
+        required: true,
+      },
+      {
+        name: "flag",
+        description: "Select one of the options!",
+        type: ApplicationCommandOptionType.Boolean,
+        autocomplete: true,
+        required: true,
+      },
+    ],
   },
   options: {
     cooldown: 5000,
@@ -26,9 +41,10 @@ module.exports = new ApplicationCommand({
    * @param {ChatInputCommandInteraction} interaction
    */
   run: async (client, interaction) => {
-    let bakien = await fetchBaKien(interaction.user.id);
+    let mention = interaction.options.getUser("user", true);
+    await setDaily(mention.id, interaction.options.getBoolean("flag"));
     await interaction.reply({
-      content: bakien.userName,
+      content: mention.id,
     });
   },
 }).toJSON();
