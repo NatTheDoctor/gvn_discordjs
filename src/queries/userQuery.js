@@ -21,7 +21,7 @@ const StatusField = {
 const fetchUser = async (userId) => {
   return await UserSchema.findOne({ userId: userId });
 };
-const fetchBaKien = async (userId) => {
+const fetchBaKien = async () => {
   return await UserSchema.findOne({ isBaKien: true });
 };
 
@@ -132,6 +132,7 @@ const setDebuff = async (id, field, flag) => {
       `${doc.userName} ${status} => ${doc.status[field]}: ${doc.status.count} `
     );
   });
+  return amount;
 };
 
 const setBuff = async (id, flag) => {
