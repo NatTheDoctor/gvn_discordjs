@@ -13,11 +13,6 @@ const { success, error } = require("../../utils/Console");
 
 const cooldownMap = new Map();
 
-const FLAG = {
-  inefficientCoin: "coin",
-  inefficientPlayer: "player",
-  inStatus: "status",
-};
 module.exports = new ApplicationCommand({
   command: {
     name: "anva",
@@ -40,32 +35,27 @@ module.exports = new ApplicationCommand({
         return; // cooldown not expired, skip execution
       }
 
-      let flag = false;
       let strFlag = "";
 
       let members = await getAllMessage(interaction);
       await interaction.deferReply();
       if (members.length < 1) {
-        flag = FLAG.inefficientPlayer;
         strFlag = `\`#${interaction.channel.name}\`\nKhông có ai để ăn vạ.`;
+        embed.setDescription(strFlag);
+
+        return interaction.followUp({ embeds: [embed] });
       }
       let profile = await fetchUser(interaction.user.id);
       if (profile.coin < 36) {
-        flag = FLAG.inefficientCoin;
         strFlag = `\`#${interaction.channel.name}\`\nKhông đủ tiền để ăn vạ`;
+        embed.setDescription(strFlag);
+
+        return interaction.followUp({ embeds: [embed] });
       }
 
       const status = await isDebuff(id);
       if (status) {
-        flag = FLAG.inefficientCoin;
         strFlag = `\`#${interaction.channel.name}\`\nDính trạng thái, không ăn vạ được nhé`;
-      }
-
-      if (
-        flag == FLAG.inStatus ||
-        flag == FLAG.inefficientCoin ||
-        flag == FLAG.inefficientPlayer
-      ) {
         embed.setDescription(strFlag);
 
         return interaction.followUp({ embeds: [embed] });
